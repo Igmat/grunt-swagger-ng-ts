@@ -1,0 +1,10 @@
+﻿{
+  "name": "grunt-swagger-ng-ts",
+  "version": "0.0.0",
+  "description": "grunt-swagger-ng-ts",
+  "main": "app.js",
+  "author": {
+    "name": "Игорь",
+    "email": ""
+  }
+}
