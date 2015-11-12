@@ -33,15 +33,19 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="tsd.json" />
     <TypeScriptCompile Include="app.ts" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <TypeScriptCompile Include="tasks\swagger-ts-codegen.ts" />
+    <TypeScriptCompile Include="typings\gruntjs\gruntjs.d.ts" />
     <TypeScriptCompile Include="typings\node\node.d.ts" />
+    <TypeScriptCompile Include="typings\tsd.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="tasks\" />
     <Folder Include="typings\" />
+    <Folder Include="typings\gruntjs\" />
     <Folder Include="typings\node\" />
   </ItemGroup>
   <ItemGroup>
