@@ -1,10 +1,25 @@
-﻿{
-  "name": "grunt-swagger-ng-ts",
-  "version": "0.0.0",
-  "description": "grunt-swagger-ng-ts",
-  "main": "app.js",
+{
+   "name": "grunt-swagger-ts-angular-codegen",
+  "version": "0.0.1",
+  "description": "Grunt task for Swagger TS angular codegen",
+  "main": "./tasks/swagger-ts-codegen.ts",
   "author": {
     "name": "Игорь",
     "email": ""
+  },
+  "keywords": [
+    "swagger",
+    "rest",
+    "dev",
+    "cloud"
+  ],
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "q": "^1.0.1",
+    "request": "^2.45.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jshint": "~0.9.2"
   }
 }
