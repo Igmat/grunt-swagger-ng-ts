@@ -1,20 +1,14 @@
 ﻿module.exports = function (grunt) {
     'use strict';
     grunt.initConfig({
-        smkdir: {
-            noop: {},
-            simple: {
-                options: {
-                    create: ['tmp'],
-                    swagger: 'swagger/swagger.json',
-                    content: 'Volodymyr Yeryhin',
-                    fileName: 'single.html'
+        'swagger-ts': {
+            options: {
+                    pathSwagger: 'swagger/swagger.json'
                 }
-            }
         }
     });
     
     // Load local tasks.
     grunt.loadTasks('tasks');
-    grunt.registerTask('TsCodegen', ['smkdir']);
+    grunt.registerTask('TsCodegen', ['swagger-ts']);
 };

@@ -1,0 +1,2163 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "Profebook API",
+    "description": "API documentation for front-end developing",
+    "termsOfService": ""
+  },
+  "basePath": "/",
+  "schemes": [ "http", "https" ],
+  "paths": {
+    "/api/account": {
+      "get": {
+        "tags": [ "Account" ],
+        "summary": "Action for checking if user already authenticated.",
+        "description": "Returns login result.",
+        "operationId": "Profebook.Controllers.AccountController.Index",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.LoginResult" }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [ "Account" ],
+        "summary": "Action for editing profile.",
+        "description": "Returns edit result.",
+        "operationId": "Profebook.Controllers.AccountController.EditProfile",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.EditProfileModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.EditProfileResult" }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [ "Account" ],
+        "summary": "Action for initial profile creation.",
+        "description": "Returns create result.",
+        "operationId": "Profebook.Controllers.AccountController.CreateProfile",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.CreateProfileModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.CreateProfileResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/account/login": {
+      "post": {
+        "tags": [ "Account" ],
+        "summary": "Action for login.",
+        "description": "Returns login result.",
+        "operationId": "Profebook.Controllers.AccountController.Login",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.LoginModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.LoginResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/account/logout": {
+      "post": {
+        "tags": [ "Account" ],
+        "summary": "Action for logout.",
+        "description": "Returns nothing.",
+        "operationId": "Profebook.Controllers.AccountController.Logout",
+        "produces": [ ],
+        "responses": { "204": { "description": "No Content" } },
+        "deprecated": false
+      }
+    },
+    "/api/account/register": {
+      "post": {
+        "tags": [ "Account" ],
+        "summary": "Action for registration.",
+        "description": "Returns registration result.",
+        "operationId": "Profebook.Controllers.AccountController.Register",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.RegisterModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.RegisterResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/account/initialization": {
+      "get": {
+        "tags": [ "Account" ],
+        "summary": "Action for getting initial profile.",
+        "description": "Returns initial profile.",
+        "operationId": "Profebook.Controllers.AccountController.GetInitialProfile",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.CreateProfileModel" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/account/changepassword": {
+      "put": {
+        "tags": [ "Account" ],
+        "summary": "Action for changing user's password.",
+        "description": "Returns result of changing password.",
+        "operationId": "Profebook.Controllers.AccountController.ChangePassword",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.ChangePasswordModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.ChangePasswordResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/account/profile": {
+      "get": {
+        "tags": [ "Account" ],
+        "summary": "Action for retrieving profile.",
+        "description": "Returns profile.",
+        "operationId": "Profebook.Controllers.AccountController.GetProfile",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.EditProfileModel" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/account/settings": {
+      "get": {
+        "tags": [ "Account" ],
+        "summary": "Action for retrieving settings.",
+        "description": "Returns settings.",
+        "operationId": "Profebook.Controllers.AccountController.GetSettings",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.SettingsModel" }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [ "Account" ],
+        "summary": "Action for editing settings.",
+        "description": "Returns settings after edit.",
+        "operationId": "Profebook.Controllers.AccountController.EditSettings",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.SettingsModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.AccountManager.SettingsModel" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/companies/{id}": {
+      "get": {
+        "tags": [ "Companies" ],
+        "summary": "Action for getting company with specified id (or alias if set).",
+        "description": "Returns company model.",
+        "operationId": "Profebook.Controllers.CompaniesController.Get",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Company id (or alias if set).",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.CompaniesManager.CompanyModel" }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [ "Companies" ],
+        "summary": "Action for editing existed company.",
+        "description": "Returns result of editing with errors if needed.",
+        "operationId": "Profebook.Controllers.CompaniesController.Edit",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Company id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Model for company editing.",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.CompaniesManager.CompanyModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.CompaniesManager.ManageCompanyResult" }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [ "Companies" ],
+        "summary": "Action for deleting existed company.",
+        "description": "Returns result of deleting with errors if needed.",
+        "operationId": "Profebook.Controllers.CompaniesController.Delete",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Company id (or alias if set).",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.CompaniesManager.ManageCompanyResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/companies/initialization": {
+      "get": {
+        "tags": [ "Companies" ],
+        "summary": "Action for getting initial company profile.",
+        "description": "Returns initial model.",
+        "operationId": "Profebook.Controllers.CompaniesController.GetInitial",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.CompaniesManager.CreateCompanyModel" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/companies": {
+      "post": {
+        "tags": [ "Companies" ],
+        "summary": "Action for creating new company.",
+        "description": "Returns result of creation with errors if needed.",
+        "operationId": "Profebook.Controllers.CompaniesController.Create",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Model for company creation.",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.CompaniesManager.CreateCompanyModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.CompaniesManager.ManageCompanyResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/connections": {
+      "get": {
+        "tags": [ "Connections" ],
+        "summary": "Action for getting connections of currently authenticated user.",
+        "description": "Returns connections.",
+        "operationId": "Profebook.Controllers.ConnectionsController.Index",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "null means collection is loading from start, else - loading after offset",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.ConnectionsManager.ConnectionsModel" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/connections/{id}/{type}/collection": {
+      "get": {
+        "tags": [ "Connections" ],
+        "operationId": "Profebook.Controllers.ConnectionsController.Get",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [ "User", "Group", "Company" ]
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [ "User", "Group", "Company" ]
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.ConnectionsManager.ConnectionsModel" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/connections/{id}/{type}": {
+      "get": {
+        "tags": [ "Connections" ],
+        "operationId": "Profebook.Controllers.ConnectionsController.Check",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [ "User", "Group", "Company" ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.ConnectionsManager.ConnectionModel" }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [ "Connections" ],
+        "operationId": "Profebook.Controllers.ConnectionsController.Edit",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [ "User", "Group", "Company" ]
+          },
+          {
+            "name": "state",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "enum": [ "NotExisted", "Accepted", "WaitingAccept", "NeededAccept", "Blacklisted", "Banned" ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.ConnectionsManager.ManageConnectionResult" }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [ "Connections" ],
+        "summary": "Action for creating new connection with someone.",
+        "description": "Returns result of creation with errors if needed.",
+        "operationId": "Profebook.Controllers.ConnectionsController.Create",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Someones id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Optional parameter if someone has several types.",
+            "required": true,
+            "type": "string",
+            "enum": [ "User", "Group", "Company" ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.ConnectionsManager.ManageConnectionResult" }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [ "Connections" ],
+        "operationId": "Profebook.Controllers.ConnectionsController.Delete",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "enum": [ "User", "Group", "Company" ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.ConnectionsManager.ManageConnectionResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/feed": {
+      "get": {
+        "tags": [ "Feed" ],
+        "summary": "Action for retrieving current user's feed including content from subscriptions.",
+        "description": "Returns feed.",
+        "operationId": "Profebook.Controllers.FeedController.GetOwnFeed",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "null means collection is loading from start, else - loading after offset",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/feed/{id}": {
+      "get": {
+        "tags": [ "Feed" ],
+        "summary": "Action for retrieving feed from owner that is specified by id.",
+        "description": "Returns feed.",
+        "operationId": "Profebook.Controllers.FeedController.GetFeed",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "null means collection is loading from start, else - loading after offset",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [ "Feed" ],
+        "summary": "Action for creating post in feed of owner that is specified by id.",
+        "description": "Returns post.",
+        "operationId": "Profebook.Controllers.FeedController.CreatePost",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set). Empty means posting in own feed.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/feed/{id}/{postId}": {
+      "get": {
+        "tags": [ "Feed" ],
+        "summary": "Action for retrieving post(if offset is null) and comments specified by owner id and post id.",
+        "description": "Returns comments.",
+        "operationId": "Profebook.Controllers.FeedController.GetComments",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "null means collection is loading from start, else - loading after offset",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [ "Feed" ],
+        "summary": "Action for editing post in feed of owner that is specified by id.",
+        "description": "Returns post.",
+        "operationId": "Profebook.Controllers.FeedController.EditPost",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [ "Feed" ],
+        "summary": "Action for creating comment to post specified by owner id and post id.",
+        "description": "Returns comment.",
+        "operationId": "Profebook.Controllers.FeedController.CreateComment",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [ "Feed" ],
+        "summary": "Action for deleting post in feed of owner that is specified by id.",
+        "description": "Returns operation result.",
+        "operationId": "Profebook.Controllers.FeedController.DeletePost",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/feed/{id}/{postId}/{commentId}": {
+      "put": {
+        "tags": [ "Feed" ],
+        "summary": "Action for editing comment to post specified by owner id and post id.",
+        "description": "Returns comment.",
+        "operationId": "Profebook.Controllers.FeedController.EditComment",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "Comment Id in this post.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [ "Feed" ],
+        "summary": "Action for deleting comment to post specified by owner id and post id.",
+        "description": "Returns operation result.",
+        "operationId": "Profebook.Controllers.FeedController.DeleteComment",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "Comment Id in this post.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/feed/{id}/{postId}/likes": {
+      "get": {
+        "tags": [ "Feed" ],
+        "summary": "Action for retrieving likes to post specified by owner id and post id.",
+        "description": "Returns likes.",
+        "operationId": "Profebook.Controllers.FeedController.GetPostLikes",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "null means collection is loading from start, else - loading after offset",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [ "Feed" ],
+        "summary": "Action for liking post specified by owner id and post id.",
+        "description": "Returns like.",
+        "operationId": "Profebook.Controllers.FeedController.LikePost",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [ "Feed" ],
+        "summary": "Action for deleting like to post specified by owner id and post id.",
+        "description": "Returns operation result.",
+        "operationId": "Profebook.Controllers.FeedController.DislikePost",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/feed/{id}/{postId}/{commentId}/likes": {
+      "get": {
+        "tags": [ "Feed" ],
+        "summary": "Action for retrieving likes to comment in post specified by owner id and post id.",
+        "description": "Returns likes.",
+        "operationId": "Profebook.Controllers.FeedController.GetCommentLikes",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "Comment Id in this post.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "null means collection is loading from start, else - loading after offset",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [ "Feed" ],
+        "summary": "Action for liking comment in post specified by owner id and post id.",
+        "description": "Returns like.",
+        "operationId": "Profebook.Controllers.FeedController.LikeComment",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "Comment Id in this post.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [ "Feed" ],
+        "summary": "Action for deleting like to comment in post specified by owner id and post id.",
+        "description": "Returns operation result.",
+        "operationId": "Profebook.Controllers.FeedController.DislikeComment",
+        "produces": [ ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post Id in this feed.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "Comment Id in this post.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/files": {
+      "get": {
+        "tags": [ "Files" ],
+        "summary": "Action for retrieving settings.",
+        "description": "Returns settings.",
+        "operationId": "Profebook.Controllers.FilesController.Index",
+        "produces": [ ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/groups/{id}": {
+      "get": {
+        "tags": [ "Groups" ],
+        "summary": "Action for getting group with specified id (or alias if set).",
+        "description": "Returns company model.",
+        "operationId": "Profebook.Controllers.GroupsController.Get",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group id (or alias if set).",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.GroupsManager.GroupModel" }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [ "Groups" ],
+        "summary": "Action for editing existed group.",
+        "description": "Returns result of editing with errors if needed.",
+        "operationId": "Profebook.Controllers.GroupsController.Edit",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group id (or alias if set).",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "model",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.GroupsManager.GroupModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.GroupsManager.ManageGroupResult" }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [ "Groups" ],
+        "summary": "Action for deleting existed Group.",
+        "description": "Returns result of deleting with errors if needed.",
+        "operationId": "Profebook.Controllers.GroupsController.Delete",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group id (or alias if set).",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.GroupsManager.ManageGroupResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/groups/initialization": {
+      "get": {
+        "tags": [ "Groups" ],
+        "summary": "Action for getting initial group profile.",
+        "description": "Returns initial model.",
+        "operationId": "Profebook.Controllers.GroupsController.GetInitial",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.GroupsManager.GroupModel" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/groups": {
+      "post": {
+        "tags": [ "Groups" ],
+        "summary": "Action for creating new group.",
+        "description": "Returns result of creation with errors if needed.",
+        "operationId": "Profebook.Controllers.GroupsController.Create",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Profebook.Models.GroupsManager.GroupModel" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.GroupsManager.ManageGroupResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/messenger": {
+      "get": {
+        "tags": [ "Messenger" ],
+        "summary": "Action for retrieving settings.",
+        "description": "Returns settings.",
+        "operationId": "Profebook.Controllers.MessengerController.Index",
+        "produces": [ ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/owners/{id}": {
+      "get": {
+        "tags": [ "Owners" ],
+        "summary": "Action for checking type of owner(user, group, company) related to this id/alias(if set).",
+        "description": "Returns owner type.",
+        "operationId": "Profebook.Controllers.OwnersController.Index",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Owner id (or alias if set).",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.OwnersService.OwnerModel" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/owners/{alias}/check": {
+      "get": {
+        "tags": [ "Owners" ],
+        "summary": "Action for checking if this alias is available to use.",
+        "description": "Returns check result.",
+        "operationId": "Profebook.Controllers.OwnersController.Check",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "alias",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "boolean" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/pages": {
+      "get": {
+        "tags": [ "Pages" ],
+        "summary": "Action for retrieving settings.",
+        "description": "Returns settings.",
+        "operationId": "Profebook.Controllers.PagesController.Index",
+        "produces": [ ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/responses": {
+      "get": {
+        "tags": [ "Responses" ],
+        "summary": "Action for retrieving settings.",
+        "description": "Returns settings.",
+        "operationId": "Profebook.Controllers.ResponsesController.Index",
+        "produces": [ ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/search": {
+      "get": {
+        "tags": [ "Search" ],
+        "summary": "Action for retrieving settings.",
+        "description": "Returns settings.",
+        "operationId": "Profebook.Controllers.SearchController.Index",
+        "produces": [ ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "tags": [ "Users" ],
+        "summary": "Action for getting user with specified id (or alias if set).",
+        "description": "Returns user model.",
+        "operationId": "Profebook.Controllers.UsersController.Get",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id (or alias if set).",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/Profebook.Models.UsersManager.User" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/vacancies": {
+      "get": {
+        "tags": [ "Vacancies" ],
+        "summary": "Action for retrieving settings.",
+        "description": "Returns settings.",
+        "operationId": "Profebook.Controllers.VacanciesController.Index",
+        "produces": [ ],
+        "responses": { "200": { "description": "OK" } },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Profebook.Models.AccountManager.LoginResult": {
+      "description": "Wrapper model for login result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Id": {
+          "description": "User's id if authentication is successful, Null if not.",
+          "type": "string"
+        },
+        "RegistrationStep": {
+          "description": "Registration step where user have to be. Null if login failed.",
+          "enum": [ "EmailConfirmation", "ProfileCreation", "Done" ],
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.CreateProfileModel": {
+      "description": "Model for profile creation.",
+      "required": [ "Name", "Surname", "IsEmailShown", "IsMale", "Birthday", "BirthdayVisibility", "IsAgreed" ],
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "First name.",
+          "type": "string"
+        },
+        "Surname": {
+          "description": "Last name.",
+          "type": "string"
+        },
+        "Email": {
+          "description": "Email (not editable).",
+          "type": "string"
+        },
+        "IsEmailShown": {
+          "description": "True if shown, false if hidden.",
+          "type": "boolean"
+        },
+        "IsMale": {
+          "description": "True if man, false if woman.",
+          "type": "boolean"
+        },
+        "Birthday": {
+          "format": "date-time",
+          "description": "Date of birth in ISO 8601 (e.g. 2014-02-15T00:00:00Z).",
+          "type": "string"
+        },
+        "BirthdayVisibility": {
+          "description": "Birthday's visibility option.",
+          "enum": [ "All", "None", "HideYear" ],
+          "type": "string"
+        },
+        "Country": {
+          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "type": "string"
+        },
+        "City": {
+          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "type": "string"
+        },
+        "IsAgreed": {
+          "description": "True if agreed, false if not.",
+          "type": "boolean"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.CreateProfileResult": {
+      "description": "Wrapper model for creation result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Error": {
+          "description": "Actual error type.",
+          "enum": [ "NameRequired", "SurnameRequired", "BirthdayInvalid", "BirthdayVisibilityInvalid", "AgreeRequired", "Unknown" ],
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.EditProfileModel": {
+      "description": "Model for profile edit.",
+      "required": [ "Name", "Surname", "IsMale", "Birthday" ],
+      "type": "object",
+      "properties": {
+        "Alias": {
+          "description": "Alias of user.",
+          "type": "string"
+        },
+        "Name": {
+          "description": "First name.",
+          "type": "string"
+        },
+        "Surname": {
+          "description": "Last name.",
+          "type": "string"
+        },
+        "Email": {
+          "description": "Email (not editable).",
+          "type": "string"
+        },
+        "IsMale": {
+          "description": "True if man, false if woman.",
+          "type": "boolean"
+        },
+        "Birthday": {
+          "format": "date-time",
+          "description": "Date of birth in ISO 8601 (e.g. 2014-02-15T00:00:00Z).",
+          "type": "string"
+        },
+        "Country": {
+          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "type": "string"
+        },
+        "City": {
+          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "type": "string"
+        },
+        "About": {
+          "description": "Some text that user wants to say about him/her.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Some text that user wants to say about what he/she do.",
+          "type": "string"
+        },
+        "Facebook": {
+          "description": "Link to the user's facebook account.",
+          "type": "string"
+        },
+        "Vkontakte": {
+          "description": "Link to the user's vkontakte account.",
+          "type": "string"
+        },
+        "Twitter": {
+          "description": "Link to the user's twitter account.",
+          "type": "string"
+        },
+        "GooglePlus": {
+          "description": "Link to the user's g+ account.",
+          "type": "string"
+        },
+        "Phone": {
+          "description": "User's phone number.",
+          "type": "string"
+        },
+        "Skype": {
+          "description": "User's skype id.",
+          "type": "string"
+        },
+        "Website": {
+          "description": "User's website.",
+          "type": "string"
+        },
+        "Skills": {
+          "description": "Array of user's skills.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Profebook.Models.AccountManager.SkillModel" }
+        },
+        "Experience": {
+          "description": "Array of objects that describes user's work experience.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Profebook.Models.AccountManager.ExperienceModel" }
+        },
+        "Education": {
+          "description": "Array of objects that describes user's education.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Profebook.Models.AccountManager.EducationModel" }
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.SkillModel": {
+      "description": "Model for describing user's skills. In future probably will contain more information.",
+      "required": [ "Name" ],
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Skill name.",
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.ExperienceModel": {
+      "description": "Model that describes user's work experience.",
+      "required": [ "Position", "Company", "StartDate" ],
+      "type": "object",
+      "properties": {
+        "Position": {
+          "description": "Position in company.",
+          "type": "string"
+        },
+        "Company": {
+          "description": "Company (for now is only name, but will be changed to company id later and added company profile).",
+          "type": "string"
+        },
+        "Country": {
+          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "type": "string"
+        },
+        "City": {
+          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "type": "string"
+        },
+        "IsCurrent": {
+          "description": "True if user works currently on this position in this company, false if not.",
+          "type": "boolean"
+        },
+        "StartDate": {
+          "format": "date-time",
+          "description": "Date of start working on this position.",
+          "type": "string"
+        },
+        "EndDate": {
+          "format": "date-time",
+          "description": "Date of end working on this position. Null if IsCurrent == true.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Description of or opinion about this position from user.",
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.EducationModel": {
+      "description": "Model that describes user's education.",
+      "required": [ "StartDate" ],
+      "type": "object",
+      "properties": {
+        "Organization": {
+          "description": "Organization name (for now is only string, but will be changed to education organization id later and added organization profile).",
+          "type": "string"
+        },
+        "Degree": {
+          "description": "Name of degree (probably will be changed in future).",
+          "type": "string"
+        },
+        "Country": {
+          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "type": "string"
+        },
+        "City": {
+          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "type": "string"
+        },
+        "IsCurrent": {
+          "description": "True if user currently gets this education, false if not.",
+          "type": "boolean"
+        },
+        "StartDate": {
+          "format": "date-time",
+          "description": "Date of start getting this education.",
+          "type": "string"
+        },
+        "EndDate": {
+          "format": "date-time",
+          "description": "Date of end getting this education. Null if IsCurrent == true.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Description of or opinion about this education from user.",
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.EditProfileResult": {
+      "description": "Wrapper model for creation result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Error": {
+          "description": "Actual error type.",
+          "enum": [ "AliasExists", "AliasInvalid", "NameRequired", "SurnameRequired", "BirthdayInvalid", "Unknown" ],
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.LoginModel": {
+      "description": "Model for login.",
+      "required": [ "Email", "Password" ],
+      "type": "object",
+      "properties": {
+        "Email": {
+          "description": "Email.",
+          "type": "string"
+        },
+        "Password": {
+          "description": "Password.",
+          "maxLength": 100,
+          "minLength": 6,
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.RegisterModel": {
+      "description": "Model for registration.",
+      "required": [ "Email", "Password" ],
+      "type": "object",
+      "properties": {
+        "Email": {
+          "description": "Email.",
+          "type": "string"
+        },
+        "Password": {
+          "description": "Password.",
+          "maxLength": 100,
+          "minLength": 6,
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.RegisterResult": {
+      "description": "Wrapper model for registration result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Error": {
+          "description": "Actual error type.",
+          "enum": [ "EmailInvalid", "EmailExists", "PasswordInvalid", "Unknown" ],
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.ChangePasswordModel": {
+      "description": "Model for changing user's password.",
+      "required": [ "OldPassword", "NewPassword", "ConfirmNewPassword" ],
+      "type": "object",
+      "properties": {
+        "OldPassword": {
+          "description": "Old password.",
+          "maxLength": 100,
+          "minLength": 6,
+          "type": "string"
+        },
+        "NewPassword": {
+          "description": "New password.",
+          "maxLength": 100,
+          "minLength": 6,
+          "type": "string"
+        },
+        "ConfirmNewPassword": {
+          "description": "Confirmation of new password.",
+          "maxLength": 100,
+          "minLength": 6,
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.ChangePasswordResult": {
+      "description": "Wrapper model for result of changing user's password.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Error": {
+          "description": "Actual error type.",
+          "enum": [ "OldPasswordInvalid", "NewPasswordInvalid", "ConfirmPasswordInvalid", "Unknown" ],
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.AccountManager.SettingsModel": {
+      "description": "Model for viewing and editing user settings.",
+      "type": "object",
+      "properties": {
+        "IsSearchingForJob": {
+          "description": "True if user is searching a job, false if not.",
+          "type": "boolean"
+        },
+        "IsOfferingJob": {
+          "description": "True if user offers a job, false if not.",
+          "type": "boolean"
+        },
+        "IsOfferingBusiness": {
+          "description": "True if user offers a business, false if not.",
+          "type": "boolean"
+        },
+        "IsNotificationSoundOn": {
+          "description": "True if user wants to hear sound when gets notifications, false if not.",
+          "type": "boolean"
+        },
+        "IsIpGeolocationOn": {
+          "description": "True if user wants to use location by IP, false if not.",
+          "type": "boolean"
+        },
+        "IsPhoneNumberShown": {
+          "description": "True if shown, false if hidden.",
+          "type": "boolean"
+        },
+        "IsEmailShown": {
+          "description": "True if shown, false if hidden.",
+          "type": "boolean"
+        },
+        "BirthdayShownFor": {
+          "description": "Birthday's visibility option.",
+          "enum": [ "All", "None", "HideYear" ],
+          "type": "string"
+        },
+        "MessagesAcceptableFrom": {
+          "description": "Messages accept criteria option.",
+          "enum": [ "All", "Connections" ],
+          "type": "string"
+        },
+        "PostsAcceptableFrom": {
+          "description": "Posts accept criteria option.",
+          "enum": [ "All", "Connections" ],
+          "type": "string"
+        },
+        "ContactsShownFor": {
+          "description": "Contacts visibility option.",
+          "enum": [ "All", "Connections" ],
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.CompaniesManager.CompanyModel": {
+      "description": "Basic model that describes company.",
+      "required": [ "Name", "Address", "Country", "City" ],
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "Id or alias(if set) of company. Null if company isn't exist yet.",
+          "type": "string"
+        },
+        "Name": {
+          "description": "Company name.",
+          "type": "string"
+        },
+        "Address": {
+          "description": "Address in selected city.",
+          "type": "string"
+        },
+        "Country": {
+          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "type": "string"
+        },
+        "City": {
+          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "type": "string"
+        },
+        "Email": {
+          "description": "Company's email.",
+          "type": "string"
+        },
+        "Facebook": {
+          "description": "Link to the company's facebook account.",
+          "type": "string"
+        },
+        "Vkontakte": {
+          "description": "Link to the company's vkontakte account.",
+          "type": "string"
+        },
+        "Twitter": {
+          "description": "Link to the company's twitter account.",
+          "type": "string"
+        },
+        "GooglePlus": {
+          "description": "Link to the company's g+ account.",
+          "type": "string"
+        },
+        "Telephone": {
+          "description": "Phone number of company.",
+          "type": "string"
+        },
+        "Site": {
+          "description": "Link to the website of company.",
+          "type": "string"
+        },
+        "About": {
+          "description": "Some summary text about company.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Some description text about company.",
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.CompaniesManager.ManageCompanyResult": {
+      "description": "Wrapper model for creation/edit/delete result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Error": {
+          "description": "Actual error type.",
+          "enum": [ "Restricted", "IdNotExists", "AliasExists", "AliasInvalid", "NameRequired", "AddressRequired", "CountryRequired", "CityRequired", "Unknown" ],
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.CompaniesManager.CreateCompanyModel": {
+      "description": "Model that describes company for creation process.",
+      "required": [ "Name", "Address", "Country", "City" ],
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "Id or alias(if set) of company. Null if company isn't exist yet.",
+          "type": "string"
+        },
+        "Name": {
+          "description": "Company name.",
+          "type": "string"
+        },
+        "Address": {
+          "description": "Address in selected city.",
+          "type": "string"
+        },
+        "Country": {
+          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "type": "string"
+        },
+        "City": {
+          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "type": "string"
+        },
+        "Telephone": {
+          "description": "Phone number of company.",
+          "type": "string"
+        },
+        "Site": {
+          "description": "Link to the website of company.",
+          "type": "string"
+        },
+        "About": {
+          "description": "Some summary text about company.",
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.ConnectionsManager.ConnectionsModel": {
+      "description": "Wrapper model for connections collection, used for loading collection by parts.",
+      "type": "object",
+      "properties": {
+        "Connections": {
+          "description": "Part of connections collection.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Profebook.Models.ConnectionsManager.ConnectionModel" }
+        },
+        "Count": {
+          "format": "int32",
+          "description": "Size of the entire collection.",
+          "type": "integer"
+        }
+      }
+    },
+    "Profebook.Models.ConnectionsManager.ConnectionModel": {
+      "description": "Model that describes connection and it's state.",
+      "type": "object",
+      "properties": {
+        "State": {
+          "description": "State of this connection.",
+          "enum": [ "NotExisted", "Accepted", "WaitingAccept", "NeededAccept", "Blacklisted", "Banned" ],
+          "type": "string"
+        },
+        "Id": {
+          "description": "Id or alias(if set) of owner.",
+          "type": "string"
+        },
+        "FullName": {
+          "description": "Shown name of owner.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Short description for owner.",
+          "type": "string"
+        },
+        "LastActivityTime": {
+          "format": "date-time",
+          "description": "Date and time of last activity. If less then 15 minutes ago then online, otherwise - offline.",
+          "type": "string"
+        },
+        "DefaultType": {
+          "description": "Default type of owner. Needed to properly select further actions(HTML template, FE controller, etc.).",
+          "enum": [ "User", "Group", "Company" ],
+          "type": "string"
+        },
+        "Types": {
+          "description": "All types assigned to this id or alias(if set).",
+          "type": "array",
+          "items": {
+            "enum": [ "User", "Group", "Company" ],
+            "type": "string"
+          }
+        },
+        "ConnectionsCount": {
+          "format": "int32",
+          "description": "Count of connections of this owner.",
+          "type": "integer"
+        },
+        "IsOwnedByCurrentUser": {
+          "description": "True if currently authenticated user has permissions to manage this owner, false if not.",
+          "type": "boolean"
+        }
+      }
+    },
+    "Profebook.Models.ConnectionsManager.ManageConnectionResult": {
+      "description": "Wrapper model for creation/edit/delete result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Error": {
+          "description": "Actual error type.",
+          "enum": [ "Restricted", "IdNotExists", "ConnectionNotExists", "Unknown" ],
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.GroupsManager.GroupModel": {
+      "description": "Basic model that describes group.",
+      "required": [ "Name" ],
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "Id or alias(if set) of group. Null if group isn't exist yet.",
+          "type": "string"
+        },
+        "Name": {
+          "description": "Group name.",
+          "type": "string"
+        },
+        "IsPublic": {
+          "description": "True if group is public, false if private.",
+          "type": "boolean"
+        },
+        "Facebook": {
+          "description": "Link to the group's facebook account.",
+          "type": "string"
+        },
+        "Vkontakte": {
+          "description": "Link to the group's vkontakte account.",
+          "type": "string"
+        },
+        "Twitter": {
+          "description": "Link to the group's twitter account.",
+          "type": "string"
+        },
+        "GooglePlus": {
+          "description": "Link to the group's g+ account.",
+          "type": "string"
+        },
+        "Site": {
+          "description": "Link to the website of group.",
+          "type": "string"
+        },
+        "About": {
+          "description": "Some summary text about group.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Some description text about group.",
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.GroupsManager.ManageGroupResult": {
+      "description": "Wrapper model for creation/edit/delete result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Error": {
+          "description": "Actual error type.",
+          "enum": [ "Restricted", "IdNotExists", "AliasExists", "AliasInvalid", "NameRequired", "Unknown" ],
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.OwnersService.OwnerModel": {
+      "description": "Model that describes owner.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "Id or alias(if set) of owner.",
+          "type": "string"
+        },
+        "FullName": {
+          "description": "Shown name of owner.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Short description for owner.",
+          "type": "string"
+        },
+        "LastActivityTime": {
+          "format": "date-time",
+          "description": "Date and time of last activity. If less then 15 minutes ago then online, otherwise - offline.",
+          "type": "string"
+        },
+        "DefaultType": {
+          "description": "Default type of owner. Needed to properly select further actions(HTML template, FE controller, etc.).",
+          "enum": [ "User", "Group", "Company" ],
+          "type": "string"
+        },
+        "Types": {
+          "description": "All types assigned to this id or alias(if set).",
+          "type": "array",
+          "items": {
+            "enum": [ "User", "Group", "Company" ],
+            "type": "string"
+          }
+        },
+        "ConnectionsCount": {
+          "format": "int32",
+          "description": "Count of connections of this owner.",
+          "type": "integer"
+        },
+        "IsOwnedByCurrentUser": {
+          "description": "True if currently authenticated user has permissions to manage this owner, false if not.",
+          "type": "boolean"
+        }
+      }
+    },
+    "Profebook.Models.UsersManager.User": {
+      "description": "Model that describes user.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "Id or alias(if set).",
+          "type": "string"
+        },
+        "Name": {
+          "description": "First name.",
+          "type": "string"
+        },
+        "Surname": {
+          "description": "Last name.",
+          "type": "string"
+        },
+        "Email": {
+          "description": "Email. Will be empty if owner's policy restricts it.",
+          "type": "string"
+        },
+        "IsMale": {
+          "description": "True if man, false if woman.",
+          "type": "boolean"
+        },
+        "IsBirthdayYearShown": {
+          "description": "True if owner's policy is allows it, false if not (in this case year in Birthday field won't be correct).",
+          "type": "boolean"
+        },
+        "Birthday": {
+          "format": "date-time",
+          "description": "Date of birth in ISO 8601 (e.g. 2014-02-15T00:00:00Z). Null if it shouldn't be shown for current user.",
+          "type": "string"
+        },
+        "Country": {
+          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "type": "string"
+        },
+        "City": {
+          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "type": "string"
+        },
+        "About": {
+          "description": "Some text that user wants to say about him/her.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Some text that user wants to say about what he/she do.",
+          "type": "string"
+        },
+        "Facebook": {
+          "description": "Link to the user's facebook account.",
+          "type": "string"
+        },
+        "Vkontakte": {
+          "description": "Link to the user's vkontakte account.",
+          "type": "string"
+        },
+        "Twitter": {
+          "description": "Link to the user's twitter account.",
+          "type": "string"
+        },
+        "GooglePlus": {
+          "description": "Link to the user's g+ account.",
+          "type": "string"
+        },
+        "Phone": {
+          "description": "User's phone number. Will be empty if owner's policy restricts it.",
+          "type": "string"
+        },
+        "Skype": {
+          "description": "User's skype id.",
+          "type": "string"
+        },
+        "Website": {
+          "description": "User's website.",
+          "type": "string"
+        },
+        "Skills": {
+          "description": "Array of user's skills.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Profebook.Models.UsersManager.SkillModel" }
+        },
+        "Experience": {
+          "description": "Array of objects that describes user's work experience.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Profebook.Models.UsersManager.ExperienceModel" }
+        },
+        "Education": {
+          "description": "Array of objects that describes user's education.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/Profebook.Models.UsersManager.EducationModel" }
+        }
+      }
+    },
+    "Profebook.Models.UsersManager.SkillModel": {
+      "description": "Model for describing user's skills. In future probably will contain more information.",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Skill name.",
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.UsersManager.ExperienceModel": {
+      "description": "Model that describes user's work experience.",
+      "required": [ "Position", "Company" ],
+      "type": "object",
+      "properties": {
+        "Position": {
+          "description": "Position in company.",
+          "type": "string"
+        },
+        "Company": {
+          "description": "Company (for now is only name, but will be changed to company id later and added company profile).",
+          "type": "string"
+        },
+        "Country": {
+          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "type": "string"
+        },
+        "City": {
+          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "type": "string"
+        },
+        "IsCurrent": {
+          "description": "True if user works currently on this position in this company, false if not.",
+          "type": "boolean"
+        },
+        "StartDate": {
+          "format": "date-time",
+          "description": "Date of start working on this position.",
+          "type": "string"
+        },
+        "EndDate": {
+          "format": "date-time",
+          "description": "Date of end working on this position. Null if IsCurrent == true.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Description of or opinion about this position from user.",
+          "type": "string"
+        }
+      }
+    },
+    "Profebook.Models.UsersManager.EducationModel": {
+      "description": "Model that describes user's education.",
+      "type": "object",
+      "properties": {
+        "Organization": {
+          "description": "Organization name (for now is only string, but will be changed to education organization id later and added organization profile).",
+          "type": "string"
+        },
+        "Degree": {
+          "description": "Name of degree (probably will be changed in future).",
+          "type": "string"
+        },
+        "Country": {
+          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "type": "string"
+        },
+        "City": {
+          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "type": "string"
+        },
+        "IsCurrent": {
+          "description": "True if user currently gets this education, false if not.",
+          "type": "boolean"
+        },
+        "StartDate": {
+          "format": "date-time",
+          "description": "Date of start getting this education.",
+          "type": "string"
+        },
+        "EndDate": {
+          "format": "date-time",
+          "description": "Date of end getting this education. Null if IsCurrent == true.",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Description of or opinion about this education from user.",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": { }
+}

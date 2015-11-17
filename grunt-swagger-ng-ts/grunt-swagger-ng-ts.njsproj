@@ -12,7 +12,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c2785515-7937-4716-920b-692ed52a233d</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>app.ts</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -33,8 +34,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="tsd.json" />
-    <TypeScriptCompile Include="app.ts" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <TypeScriptCompile Include="tasks\swagger-ts-codegen.ts" />

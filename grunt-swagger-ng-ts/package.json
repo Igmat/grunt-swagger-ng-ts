@@ -1,6 +1,6 @@
 {
-   "name": "grunt-swagger-ts-angular-codegen",
-  "version": "0.0.1",
+  "name": "grunt-swagger-ts-angular-codegen",
+  "version": "0.0.2",
   "description": "Grunt task for Swagger TS angular codegen",
   "main": "./tasks/swagger-ts-codegen.ts",
   "author": {
@@ -13,10 +13,15 @@
     "dev",
     "cloud"
   ],
+  "files": [
+    "tasks",
+    "Gruntfile.js"
+  ],
   "dependencies": {
     "lodash": "^2.4.1",
     "q": "^1.0.1",
-    "request": "^2.45.0"
+    "request": "^2.45.0",
+    "swagger-ts-codegen": "0.0.7"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
