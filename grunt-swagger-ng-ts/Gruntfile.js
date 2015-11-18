@@ -3,7 +3,10 @@
     grunt.initConfig({
         'swagger-ts': {
             options: {
-                    pathSwagger: 'swagger/swagger.json'
+                pathSwagger: 'swagger/swagger.json',
+                dest: 'ssss',
+                mainModule: 'profebook',
+                pathToGenRefs: 'gen.ts'
                 }
         }
     });

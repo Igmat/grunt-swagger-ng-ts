@@ -1,22 +1,27 @@
 ﻿/// <reference path="../typings/tsd.d.ts" />
 
- import swaggerTsCodegen = require('swagger-ts-codegen');
+import swaggerTsCodegen = require('swagger-ts-codegen');
+import fs = require('fs');
+
 
 interface MyOptions {
     SourceRoot: string; 
 }
 export = (grunt: IGrunt) => {
     'use strict';
-    var fs = require('fs');
+    
     grunt.registerTask('swagger-ts', 'task description', function () {
+        // Options that the user can use
         var options = this.options({
             pathSwagger: "swagger.json",
-            dest: 'gen'
+            pathToRef: "app.ts",
+            pathToGenRefs:  "generated.ts",
+            dest: 'app',
+            mainModule: 'App'
         });
-        
+        var changeCase = require('change-case');
+        // use swagger - ts - codegen
         var swagger: Swagger.Spec = grunt.file.readJSON(options.pathSwagger);
-        //var serviceGenerator = codeGen.Generators.Services.ServiceGenerator();
-        //var components = codeGen.serviceGenerator.GenerateComponents(swagger);
         var generator = new swaggerTsCodegen.Generators.Services.ServiceGenerator();
         var renderer = new swaggerTsCodegen.Renderers.Component.ComponentRenderer(
             swaggerTsCodegen.enumTemplate,
@@ -25,25 +30,69 @@ export = (grunt: IGrunt) => {
         var components = generator.GenerateComponents(swagger);
         var rendered = renderer.RenderComponents(components);
 
+
+        var staticReference = "/// <reference path=\"../" + options.pathToRef + "\" />" + "\n";
+        var allReference = '';
+        var arrayRef = [];
+        // main folder for all files 
+        grunt.file.mkdir(options.dest);
+
         for (var i = 0; i < rendered.length; i++) {
             var nameFolder = rendered[i].name;
-            grunt.file.mkdir(nameFolder);
+            nameFolder = nameFolder.toLowerCase();
+
+            grunt.file.mkdir(options.dest + '/' + nameFolder);
+            var nameService: string = changeCase.paramCase(rendered[i].service.name) + '.service.ts';
+
+            var referenceService = "/// <reference path=" + "\"" + nameFolder + "/" + nameService + "\" />" + "\n";
+            var makeModule = "module " + options.mainModule + "." + rendered[i].name + " {" + "\n";
+            var angularDescription = "angular.module('" + options.mainModule + "').service('" + rendered[i].service.name + "Service" + "', " + rendered[i].service.name + "Service" + ");" + "\n" + "}"
+            var serviceContent = staticReference + makeModule + rendered[i].service.content + "\n" + angularDescription;
+           
+            allReference += referenceService;
             for (var j = 0; j < rendered[i].models.length; j++){
-                var nameModel = rendered[i].models[j].name;
-                fs.writeFileSync(nameFolder + '/' + nameModel + '.ts', rendered[i].models[j].content, 'UTF-8')
+                var nameModel: string = changeCase.paramCase(rendered[i].models[j].name);
+                let lastPart = nameModel.slice(nameModel.lastIndexOf('-') + 1);
+                // slice model name files 
+                switch (lastPart) {
+                    case 'model':
+                        nameModel = nameModel.slice(0, nameModel.lastIndexOf('-')) + '.model.ts';
+                        break;
+                    case 'result':
+                        nameModel = nameModel.slice(0, nameModel.lastIndexOf('-')) + '.result.ts';
+                        break;
+                    default:
+                        nameModel += '.ts';
+                }
+
+                var modelContent = staticReference + makeModule + rendered[i].models[j].content + "\n" + "}";
+                var referenceModel = "/// <reference path=" + "\"" + nameFolder + "/" + nameModel + "\" />" + "\n";
+                // write model file
+                fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameModel, modelContent, 'UTF-8')
+                 allReference += referenceModel;
             }
             for (var p = 0; p < rendered[i].enums.length; p++) {
-                var nameEnum = rendered[i].enums[p].name;
-                fs.writeFileSync(nameFolder + '/' + nameEnum + '.ts', rendered[i].enums[p].content, 'UTF-8')
+                var nameEnum: string = changeCase.paramCase(rendered[i].enums[p].name);
+                let lastPart = nameEnum.slice(nameEnum.lastIndexOf('-') + 1);
+                switch (lastPart) {
+                    // slice enum name files 
+                    case 'enum':
+                        nameEnum = nameEnum.slice(0, nameEnum.lastIndexOf('-')) + '.enum.ts';
+                        break;
+                    default:
+                        nameEnum += '.ts';
+                }
+
+                var enumContent = staticReference + makeModule + rendered[i].enums[p].content + "\n" + "}";
+                var referenceEnum = "/// <reference path=" + "\"" + nameFolder + "/" + nameEnum + "\" />" + "\n";
+                // write enum  file
+                fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameEnum, enumContent, 'UTF-8')
+                allReference += referenceEnum;
             }
-            fs.writeFileSync(nameFolder + '/' + rendered[i].service.name + '.ts', rendered[i].service.content, 'UTF-8')
+            fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameService, serviceContent, 'UTF-8')
         }
-        var obj = fs.readFileSync(options.pathSwagger, 'utf8');
-
-        var fname = "ssss.ts"
-        grunt.file.mkdir(options.dest);
-        fs.writeFileSync(options.dest + '/' + fname, rendered[0].service.content, 'UTF-8');
-
+        // write file reference 
+        fs.writeFileSync(options.dest + '/' + options.pathToGenRefs, allReference, 'UTF-8');
         grunt.log.ok;
     });
 }
