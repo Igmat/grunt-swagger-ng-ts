@@ -1,6 +1,6 @@
 {
   "name": "grunt-swagger-ts-angular-codegen",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Grunt task for Swagger TS angular codegen",
   "main": "./tasks/swagger-ts-codegen.ts",
   "author": {
