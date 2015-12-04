@@ -17,7 +17,8 @@ export = (grunt: IGrunt) => {
             pathToRef: "app.ts",
             pathToGenRefs:  "generated.ts",
             dest: 'app',
-            mainModule: 'App'
+            mainModule: 'App',
+            disabletslint: true
         });
         var changeCase = require('change-case');
         // use swagger - ts - codegen
@@ -34,6 +35,7 @@ export = (grunt: IGrunt) => {
         var staticReference = "/// <reference path=\"../" + options.pathToRef + "\" />" + "\n";
         var allReference = '';
         var arrayRef = [];
+        var disabletslint = options.disabletslint ? " /* tslint:disable */ \n" : "";
         // main folder for all files 
         grunt.file.mkdir(options.dest);
 
@@ -47,7 +49,7 @@ export = (grunt: IGrunt) => {
             var referenceService = "/// <reference path=" + "\"" + nameFolder + "/" + nameService + "\" />" + "\n";
             var makeModule = "module " + options.mainModule + "." + rendered[i].name + " {" + "\n";
             var angularDescription = "angular.module('" + options.mainModule + "').service('" + rendered[i].service.name + "Service" + "', " + rendered[i].service.name + "Service" + ");" + "\n" + "}"
-            var serviceContent = staticReference + makeModule + rendered[i].service.content + "\n" + angularDescription;
+            var serviceContent = staticReference + disabletslint +  makeModule + rendered[i].service.content + "\n" + angularDescription;
            
             allReference += referenceService;
             for (var j = 0; j < rendered[i].models.length; j++){
@@ -65,7 +67,7 @@ export = (grunt: IGrunt) => {
                         nameModel += '.ts';
                 }
 
-                var modelContent = staticReference + makeModule + rendered[i].models[j].content + "\n" + "}";
+                var modelContent = staticReference + disabletslint + makeModule + rendered[i].models[j].content + "\n" + "}";
                 var referenceModel = "/// <reference path=" + "\"" + nameFolder + "/" + nameModel + "\" />" + "\n";
                 // write model file
                 fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameModel, modelContent, 'UTF-8')
@@ -83,7 +85,7 @@ export = (grunt: IGrunt) => {
                         nameEnum += '.ts';
                 }
 
-                var enumContent = staticReference + makeModule + rendered[i].enums[p].content + "\n" + "}";
+                var enumContent = staticReference + disabletslint + makeModule + rendered[i].enums[p].content + "\n" + "}";
                 var referenceEnum = "/// <reference path=" + "\"" + nameFolder + "/" + nameEnum + "\" />" + "\n";
                 // write enum  file
                 fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameEnum, enumContent, 'UTF-8')

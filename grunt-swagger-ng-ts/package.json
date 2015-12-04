@@ -1,6 +1,6 @@
 {
   "name": "grunt-swagger-ts-angular-codegen",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Grunt task for Swagger TS angular codegen",
   "main": "./tasks/swagger-ts-codegen.ts",
   "author": {
@@ -19,10 +19,10 @@
   ],
   "dependencies": {
     "lodash": "^2.4.1",
-    "q": "^1.0.1",
     "request": "^2.45.0",
-    "swagger-ts-codegen": "0.0.15",
-    "change-case": "2.3.0" 
+    "q": "1.4.1",
+    "swagger-ts-codegen": "0.0.16",
+    "change-case": "2.3.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
