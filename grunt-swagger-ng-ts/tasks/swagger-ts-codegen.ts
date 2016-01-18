@@ -33,10 +33,10 @@ export = (grunt: IGrunt) => {
         var rendered = renderer.RenderComponents(components);
 
 
-        var staticReference = "/// <reference path=\"../" + options.pathToRef + "\" />" + "\n";
+        var staticReference = "/// <reference path=\"../" + options.pathToRef + "\" />" + "\r\n";
         var allReference = '';
         var arrayRef = [];
-        var disabletslint = options.disabletslint ? " /* tslint:disable */ \n" : "";
+        var disabletslint = options.disabletslint ? " /* tslint:disable */ \r\n" : "";
         // main folder for all files 
         grunt.file.mkdir(options.dest);
 
@@ -47,40 +47,40 @@ export = (grunt: IGrunt) => {
             grunt.file.mkdir(options.dest + '/' + nameFolder);
             var nameService: string = changeCase.paramCase(rendered[i].service.name) + '.service.ts';
 
-            var referenceService = "/// <reference path=" + "\"" + nameFolder + "/" + nameService + "\" />" + "\n";
-            var makeModule = "module " + options.mainModule + "." + rendered[i].name + " {" + "\n";
-            var angularDescription = "angular.module('" + options.mainModule + "').service('" + rendered[i].service.name + "Service" + "', " + rendered[i].service.name + "Service" + ");" + "\n" + "}"
-            var serviceContent = staticReference + disabletslint +  makeModule + rendered[i].service.content + "\n" + angularDescription;
+            var referenceService = "/// <reference path=" + "\"" + nameFolder + "/" + nameService + "\" />" + "\r\n";
+            var makeModule = "module " + options.mainModule + "." + rendered[i].name + " {" + "\r\n";
+            var angularDescription = "angular.module('" + options.mainModule + "').service('" + rendered[i].service.name + "Service" + "', " + rendered[i].service.name + "Service" + ");" + "\r\n" + "}"
+            var serviceContent = staticReference + disabletslint + makeModule + rendered[i].service.content + "\r\n" + angularDescription;
            
             allReference += referenceService;
 
             var nameMock: string = changeCase.paramCase(rendered[i].name) + '.mock.ts';
 
-            var referenceMock = "/// <reference path=" + "\"" + nameFolder + "/" + nameMock + "\" />" + "\n";
-            var makeModuleMocks = "module " + options.mainModule + "." + rendered[i].name + ".Mocks {" + "\n";
-            var angularMockDescription = "angular.module('" + options.mainModule + "').run(" + rendered[i].name + "Requests);" + "\n" + "}"
-            var mockContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.content + "\n" + angularMockDescription;
+            var referenceMock = "/// <reference path=" + "\"" + nameFolder + "/" + nameMock + "\" />" + "\r\n";
+            var makeModuleMocks = "module " + options.mainModule + "." + rendered[i].name + ".Mocks {" + "\r\n";
+            var angularMockDescription = "angular.module('" + options.mainModule + "').run(" + rendered[i].name + "Requests);" + "\r\n" + "}"
+            var mockContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.content + "\r\n" + angularMockDescription;
 
             allReference += referenceMock;
 
             var nameMockOverride: string = changeCase.paramCase(rendered[i].name) + '.override.mock.ts';
 
-            var referenceMockOverride = "/// <reference path=" + "\"" + nameFolder + "/" + nameMockOverride + "\" />" + "\n";
-            var mockOverrideContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.contentOverride + "\n" + "}";
+            var referenceMockOverride = "/// <reference path=" + "\"" + nameFolder + "/" + nameMockOverride + "\" />" + "\r\n";
+            var mockOverrideContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.contentOverride + "\r\n" + "}";
 
             allReference += referenceMockOverride;
 
             var nameChance: string = changeCase.paramCase(rendered[i].name) + '.chance.ts';
 
-            var referenceChance = "/// <reference path=" + "\"" + nameFolder + "/" + nameChance + "\" />" + "\n";
-            var chanceContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.chanceHelper + "\n" + "}";
+            var referenceChance = "/// <reference path=" + "\"" + nameFolder + "/" + nameChance + "\" />" + "\r\n";
+            var chanceContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.chanceHelper + "\r\n" + "}";
 
             allReference += referenceChance;
 
             var nameChanceOverride: string = changeCase.paramCase(rendered[i].name) + '.override.chance.ts';
 
-            var referenceChanceOverride = "/// <reference path=" + "\"" + nameFolder + "/" + nameChanceOverride + "\" />" + "\n";
-            var chanceOverrideContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.chanceOverride + "\n" + "}";
+            var referenceChanceOverride = "/// <reference path=" + "\"" + nameFolder + "/" + nameChanceOverride + "\" />" + "\r\n";
+            var chanceOverrideContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.chanceOverride + "\r\n" + "}";
 
             allReference += referenceChanceOverride;
             for (var j = 0; j < rendered[i].models.length; j++){
@@ -98,8 +98,8 @@ export = (grunt: IGrunt) => {
                         nameModel += '.ts';
                 }
 
-                var modelContent = staticReference + disabletslint + makeModule + rendered[i].models[j].content + "\n" + "}";
-                var referenceModel = "/// <reference path=" + "\"" + nameFolder + "/" + nameModel + "\" />" + "\n";
+                var modelContent = staticReference + disabletslint + makeModule + rendered[i].models[j].content + "\r\n" + "}";
+                var referenceModel = "/// <reference path=" + "\"" + nameFolder + "/" + nameModel + "\" />" + "\r\n";
                 // write model file
                 fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameModel, modelContent, 'UTF-8')
                  allReference += referenceModel;
@@ -116,8 +116,8 @@ export = (grunt: IGrunt) => {
                         nameEnum += '.ts';
                 }
 
-                var enumContent = staticReference + disabletslint + makeModule + rendered[i].enums[p].content + "\n" + "}";
-                var referenceEnum = "/// <reference path=" + "\"" + nameFolder + "/" + nameEnum + "\" />" + "\n";
+                var enumContent = staticReference + disabletslint + makeModule + rendered[i].enums[p].content + "\r\n" + "}";
+                var referenceEnum = "/// <reference path=" + "\"" + nameFolder + "/" + nameEnum + "\" />" + "\r\n";
                 // write enum  file
                 fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameEnum, enumContent, 'UTF-8')
                 allReference += referenceEnum;
@@ -125,9 +125,13 @@ export = (grunt: IGrunt) => {
             fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameService, serviceContent, 'UTF-8');
 
             fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameMock, mockContent, 'UTF-8');
-            fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameMockOverride, mockOverrideContent, 'UTF-8');
+            if (!fs.existsSync(options.dest + '/' + nameFolder + '/' + nameMockOverride)) {
+                fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameMockOverride, mockOverrideContent, 'UTF-8');
+            }
             fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameChance, chanceContent, 'UTF-8');
-            fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameChanceOverride, chanceOverrideContent, 'UTF-8');
+            if (!fs.existsSync(options.dest + '/' + nameFolder + '/' + nameChanceOverride)) {
+                fs.writeFileSync(options.dest + '/' + nameFolder + '/' + nameChanceOverride, chanceOverrideContent, 'UTF-8');
+            }
         }
         // write file reference 
         fs.writeFileSync(options.dest + '/' + options.pathToGenRefs, allReference, 'UTF-8');
