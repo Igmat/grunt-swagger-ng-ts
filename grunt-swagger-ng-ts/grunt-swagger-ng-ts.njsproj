@@ -36,6 +36,7 @@
   <ItemGroup>
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="tsd.json" />
     <TypeScriptCompile Include="tasks\swagger-ts-codegen.ts" />
     <TypeScriptCompile Include="typings\gruntjs\gruntjs.d.ts" />
     <TypeScriptCompile Include="typings\node\node.d.ts" />
