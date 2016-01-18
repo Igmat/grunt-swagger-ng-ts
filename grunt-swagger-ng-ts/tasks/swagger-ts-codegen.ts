@@ -57,29 +57,30 @@ export = (grunt: IGrunt) => {
             var nameMock: string = changeCase.paramCase(rendered[i].name) + '.mock.ts';
 
             var referenceMock = "/// <reference path=" + "\"" + nameFolder + "/" + nameMock + "\" />" + "\n";
-            var angularMockDescription = "angular.module('" + options.mainModule + "').run(" + rendered[i].name + ");" + "\n" + "}"
-            var mockContent = staticReference + disabletslint + makeModule + rendered[i].mocks.content + "\n" + angularMockDescription;
+            var makeModuleMocks = "module " + options.mainModule + "." + rendered[i].name + ".Mocks {" + "\n";
+            var angularMockDescription = "angular.module('" + options.mainModule + "').run(" + rendered[i].name + "Requests);" + "\n" + "}"
+            var mockContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.content + "\n" + angularMockDescription;
 
             allReference += referenceMock;
 
             var nameMockOverride: string = changeCase.paramCase(rendered[i].name) + '.override.mock.ts';
 
             var referenceMockOverride = "/// <reference path=" + "\"" + nameFolder + "/" + nameMockOverride + "\" />" + "\n";
-            var mockOverrideContent = staticReference + disabletslint + makeModule + rendered[i].mocks.contentOverride + "\n" + "}";
+            var mockOverrideContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.contentOverride + "\n" + "}";
 
             allReference += referenceMockOverride;
 
             var nameChance: string = changeCase.paramCase(rendered[i].name) + '.chance.ts';
 
             var referenceChance = "/// <reference path=" + "\"" + nameFolder + "/" + nameChance + "\" />" + "\n";
-            var chanceContent = staticReference + disabletslint + makeModule + rendered[i].mocks.chanceHelper + "\n" + "}";
+            var chanceContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.chanceHelper + "\n" + "}";
 
             allReference += referenceChance;
 
             var nameChanceOverride: string = changeCase.paramCase(rendered[i].name) + '.override.chance.ts';
 
             var referenceChanceOverride = "/// <reference path=" + "\"" + nameFolder + "/" + nameChanceOverride + "\" />" + "\n";
-            var chanceOverrideContent = staticReference + disabletslint + makeModule + rendered[i].mocks.chanceOverride + "\n" + "}";
+            var chanceOverrideContent = staticReference + disabletslint + makeModuleMocks + rendered[i].mocks.chanceOverride + "\n" + "}";
 
             allReference += referenceChanceOverride;
             for (var j = 0; j < rendered[i].models.length; j++){
