@@ -32,7 +32,8 @@ export = (grunt: IGrunt) => {
         var rendered = renderer.RenderComponents(components);
 
 
-        var staticReference = "/// <reference path=\"../" + options.pathToRef + "\" />" + "\r\n";
+        var staticReferenceForServices = "/// <reference path=\"../" + options.pathToRef + "\" />" + "\r\n";
+        var staticReferenceForElse = "/// <reference path=\"../../" + options.pathToRef + "\" />" + "\r\n";
         var servicesReference = '';
         var mocksReference = '';
         mocksReference += "/// <reference path=" + "\"" + options.pathToLibHelper + "\" />" + "\r\n" + "\r\n";
@@ -54,7 +55,7 @@ export = (grunt: IGrunt) => {
             var referenceService = "/// <reference path=" + "\"" + nameFolder + "/" + nameService + "\" />" + "\r\n";
             var makeModule = "module " + options.mainModule + "." + component.name + " {" + "\r\n";
             var angularDescription = "angular.module('" + options.mainModule + "').service('" + component.service.name + "Service" + "', " + component.service.name + "Service" + ");" + "\r\n" + "}"
-            var serviceContent = staticReference + disabletslint + makeModule + component.service.content + "\r\n" + angularDescription;
+            var serviceContent = staticReferenceForServices + disabletslint + makeModule + component.service.content + "\r\n" + angularDescription;
 
             servicesReference += "/* " + component.name + " Service */" + "\r\n";
             servicesReference += referenceService;
@@ -64,7 +65,7 @@ export = (grunt: IGrunt) => {
             var referenceMock = "/// <reference path=" + "\"" + nameFolder + "/mocks/" + nameMock + "\" />" + "\r\n";
             var makeModuleMocks = "module " + options.mainModule + "." + component.name + ".Mocks {" + "\r\n";
             var angularMockDescription = "angular.module('" + options.mainModule + "').run(" + component.name + "Requests);" + "\r\n" + "}"
-            var mockContent = staticReference + disabletslint + makeModuleMocks + component.mocks.content + "\r\n" + angularMockDescription;
+            var mockContent = staticReferenceForElse + disabletslint + makeModuleMocks + component.mocks.content + "\r\n" + angularMockDescription;
 
             mocksReference += "/* " + component.name + " Service */" + "\r\n";
             mocksReference += referenceMock;
@@ -72,21 +73,21 @@ export = (grunt: IGrunt) => {
             var nameMockOverride: string = changeCase.paramCase(component.name) + '.override.mock.ts';
 
             var referenceMockOverride = "/// <reference path=" + "\"" + nameFolder + "/mocks/" + nameMockOverride + "\" />" + "\r\n";
-            var mockOverrideContent = staticReference + disabletslint + makeModuleMocks + component.mocks.contentOverride + "\r\n" + "}";
+            var mockOverrideContent = staticReferenceForElse + disabletslint + makeModuleMocks + component.mocks.contentOverride + "\r\n" + "}";
 
             mocksReference += referenceMockOverride;
 
             var nameChance: string = changeCase.paramCase(component.name) + '.chance.ts';
 
             var referenceChance = "/// <reference path=" + "\"" + nameFolder + "/mocks/" + nameChance + "\" />" + "\r\n";
-            var chanceContent = staticReference + disabletslint + makeModuleMocks + component.mocks.chanceHelper + "\r\n" + "}";
+            var chanceContent = staticReferenceForElse + disabletslint + makeModuleMocks + component.mocks.chanceHelper + "\r\n" + "}";
 
             mocksReference += referenceChance;
 
             var nameChanceOverride: string = changeCase.paramCase(component.name) + '.override.chance.ts';
 
             var referenceChanceOverride = "/// <reference path=" + "\"" + nameFolder + "/mocks/" + nameChanceOverride + "\" />" + "\r\n";
-            var chanceOverrideContent = staticReference + disabletslint + makeModuleMocks + component.mocks.chanceOverride + "\r\n" + "}";
+            var chanceOverrideContent = staticReferenceForElse + disabletslint + makeModuleMocks + component.mocks.chanceOverride + "\r\n" + "}";
 
             mocksReference += referenceChanceOverride;
             for (var j = 0; j < component.models.length; j++){
@@ -104,7 +105,7 @@ export = (grunt: IGrunt) => {
                         nameModel += '.ts';
                 }
 
-                var modelContent = staticReference + disabletslint + makeModule + component.models[j].content + "\r\n" + "}";
+                var modelContent = staticReferenceForElse + disabletslint + makeModule + component.models[j].content + "\r\n" + "}";
                 var referenceModel = "/// <reference path=" + "\"" + nameFolder + "/models/" + nameModel + "\" />" + "\r\n";
                 // write model file
                 fs.writeFileSync(options.dest + '/' + nameFolder + '/models/' + nameModel, modelContent, 'UTF-8')
@@ -122,7 +123,7 @@ export = (grunt: IGrunt) => {
                         nameEnum += '.ts';
                 }
 
-                var enumContent = staticReference + disabletslint + makeModule + component.enums[p].content + "\r\n" + "}";
+                var enumContent = staticReferenceForElse + disabletslint + makeModule + component.enums[p].content + "\r\n" + "}";
                 var referenceEnum = "/// <reference path=" + "\"" + nameFolder + "/models/" + nameEnum + "\" />" + "\r\n";
                 // write enum  file
                 fs.writeFileSync(options.dest + '/' + nameFolder + '/models/' + nameEnum, enumContent, 'UTF-8')
