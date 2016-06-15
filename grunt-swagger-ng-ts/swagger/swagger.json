@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "v1",
-    "title": "Profebook API",
+    "title": "Profitcar API",
     "description": "API documentation for front-end developing",
     "termsOfService": ""
   },
@@ -12,8 +12,8 @@
       "get": {
         "tags": [ "Account" ],
         "summary": "Action for checking if user already authenticated.",
-        "description": "Returns login result.",
-        "operationId": "Profebook.Controllers.AccountController.Check",
+        "description": "Returns check result.",
+        "operationId": "Profitcar.Controllers.AccountController.Check",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "responses": {
           "200": {
@@ -29,7 +29,7 @@
         "tags": [ "Account" ],
         "summary": "Action for login.",
         "description": "Returns login result.",
-        "operationId": "Profebook.Controllers.AccountController.Login",
+        "operationId": "Profitcar.Controllers.AccountController.Login",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
@@ -54,7 +54,7 @@
         "tags": [ "Account" ],
         "summary": "Action for logout.",
         "description": "Returns nothing.",
-        "operationId": "Profebook.Controllers.AccountController.Logout",
+        "operationId": "Profitcar.Controllers.AccountController.Logout",
         "produces": [ ],
         "responses": { "204": { "description": "No Content" } },
         "deprecated": false
@@ -65,7 +65,7 @@
         "tags": [ "Account" ],
         "summary": "Action for registration.",
         "description": "Returns registration result.",
-        "operationId": "Profebook.Controllers.AccountController.Register",
+        "operationId": "Profitcar.Controllers.AccountController.Register",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
@@ -90,7 +90,7 @@
         "tags": [ "Account" ],
         "summary": "Action for changing user's password.",
         "description": "Returns result of changing password.",
-        "operationId": "Profebook.Controllers.AccountController.ChangePassword",
+        "operationId": "Profitcar.Controllers.AccountController.ChangePassword",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
@@ -115,7 +115,7 @@
         "tags": [ "Account" ],
         "summary": "Action for retrieving settings.",
         "description": "Returns settings.",
-        "operationId": "Profebook.Controllers.AccountController.GetSettings",
+        "operationId": "Profitcar.Controllers.AccountController.GetSettings",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "responses": {
           "200": {
@@ -129,7 +129,7 @@
         "tags": [ "Account" ],
         "summary": "Action for editing settings.",
         "description": "Returns settings after edit.",
-        "operationId": "Profebook.Controllers.AccountController.EditSettings",
+        "operationId": "Profitcar.Controllers.AccountController.EditSettings",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
@@ -149,890 +149,366 @@
         "deprecated": false
       }
     },
-    "/api/companies/{id}": {
-      "get": {
-        "tags": [ "Companies" ],
-        "summary": "Action for getting company with specified id (or alias if set).",
-        "description": "Returns company model.",
-        "operationId": "Profebook.Controllers.CompaniesController.Get",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Company id (or alias if set).",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/CompanyModel" }
-          }
-        },
-        "deprecated": false
-      },
+    "/api/account/avatar": {
       "put": {
-        "tags": [ "Companies" ],
-        "summary": "Action for editing existed company.",
-        "description": "Returns result of editing with errors if needed.",
-        "operationId": "Profebook.Controllers.CompaniesController.Edit",
+        "tags": [ "Account" ],
+        "summary": "Action for changing avatar image. Depends on FE realisation (flowjs/ng-flow).",
+        "description": "Returns updated avatar.",
+        "operationId": "Profitcar.Controllers.AccountController.EditAvatar",
         "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Company id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Model for company editing.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/CompanyModel" }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageCompanyResult" }
-          }
-        },
-        "deprecated": false
-      },
-      "delete": {
-        "tags": [ "Companies" ],
-        "summary": "Action for deleting existed company.",
-        "description": "Returns result of deleting with errors if needed.",
-        "operationId": "Profebook.Controllers.CompaniesController.Delete",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Company id (or alias if set).",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageCompanyResult" }
+            "schema": { "$ref": "#/definitions/AvatarModel" }
           }
         },
         "deprecated": false
       }
     },
-    "/api/companies": {
+    "/api/offers": {
       "get": {
-        "tags": [ "Companies" ],
-        "summary": "Action for getting initial company profile.",
-        "description": "Returns initial model.",
-        "operationId": "Profebook.Controllers.CompaniesController.GetInitial",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/CreateCompanyModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Companies" ],
-        "summary": "Action for creating new company.",
-        "description": "Returns result of creation with errors if needed.",
-        "operationId": "Profebook.Controllers.CompaniesController.Create",
+        "tags": [ "Offers" ],
+        "summary": "Action for searching offers.",
+        "description": "Returns offers.",
+        "operationId": "Profitcar.Controllers.OffersController.Search",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
-            "name": "model",
-            "in": "body",
-            "description": "Model for company creation.",
+            "name": "parameters",
+            "in": "query",
+            "description": "Parameters for searching.",
             "required": false,
-            "schema": { "$ref": "#/definitions/CreateCompanyModel" }
+            "schema": { "$ref": "#/definitions/SearchParametersModel" }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageCompanyResult" }
+            "schema": { "$ref": "#/definitions/OffersModel" }
           }
         },
         "deprecated": false
       }
     },
-    "/api/connections": {
+    "/api/offers/full/{id}": {
       "get": {
-        "tags": [ "Connections" ],
-        "summary": "Alias action for getting connections of currently authenticated user.",
-        "description": "Returns connections.",
-        "operationId": "Profebook.Controllers.ConnectionsController.GetOwn",
+        "tags": [ "Offers" ],
+        "summary": "Action for retrieving full offer's info.",
+        "description": "Returns full offer.",
+        "operationId": "Profitcar.Controllers.OffersController.GetFullOffer",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
-            "name": "filter",
-            "in": "query",
-            "description": "Optional parameter to filter connections by type.",
-            "required": false,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
+            "name": "id",
+            "in": "path",
+            "description": "Offer's identifier.",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ConnectionsModel" }
+            "schema": { "$ref": "#/definitions/FullOfferModel" }
           }
         },
         "deprecated": false
       }
     },
-    "/api/connections/{id}/{type}/collection": {
+    "/api/offers/my": {
       "get": {
-        "tags": [ "Connections" ],
-        "summary": "Action for getting connections of someone with specified id (or alias if set) and type.",
-        "description": "Returns connections.",
-        "operationId": "Profebook.Controllers.ConnectionsController.Get",
+        "tags": [ "Offers" ],
+        "summary": "Action for retrieving collections of user's offers.",
+        "description": "Returns user's offers.",
+        "operationId": "Profitcar.Controllers.OffersController.GetMyOffers",
         "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "filter",
-            "in": "query",
-            "description": "Optional parameter to filter connections by type.",
-            "required": false,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ConnectionsModel" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/connections/{id}/{type}": {
-      "get": {
-        "tags": [ "Connections" ],
-        "summary": "Action for checking if current user has connections with someone with specified id (or alias if set) and type.",
-        "description": "Returns check result.",
-        "operationId": "Profebook.Controllers.ConnectionsController.Check",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Someones id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Someones type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ConnectionModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "put": {
-        "tags": [ "Connections" ],
-        "summary": "Action for accepting and editing connection with someone.",
-        "description": "Returns result of accepting/editing with errors if needed.",
-        "operationId": "Profebook.Controllers.ConnectionsController.Edit",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Someones id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Someones type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "stateAction",
-            "in": "body",
-            "description": "State wanted to set for this connection.",
-            "required": false,
-            "schema": {
-              "enum": [ "Accept", "Ignore", "Blacklist" ],
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageConnectionResult" }
+            "schema": { "$ref": "#/definitions/OffersModel" }
           }
         },
         "deprecated": false
       },
       "post": {
-        "tags": [ "Connections" ],
-        "summary": "Action for creating new connection with someone.",
-        "description": "Returns result of creation with errors if needed.",
-        "operationId": "Profebook.Controllers.ConnectionsController.Create",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Someones id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Someones type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageConnectionResult" }
-          }
-        },
-        "deprecated": false
-      },
-      "delete": {
-        "tags": [ "Connections" ],
-        "summary": "Action for deleting connection with someone.",
-        "description": "Returns result of deleting with errors if needed.",
-        "operationId": "Profebook.Controllers.ConnectionsController.Delete",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Someones id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Someones type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageConnectionResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/feed": {
-      "get": {
-        "tags": [ "Feed" ],
-        "summary": "Action for retrieving current user's feed including content from subscriptions.",
-        "description": "Returns feed.",
-        "operationId": "Profebook.Controllers.FeedController.GetOwnFeed",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/FeedModel" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/feed/{id}/{type}": {
-      "get": {
-        "tags": [ "Feed" ],
-        "summary": "Action for retrieving feed from owner that is specified by id.",
-        "description": "Returns feed.",
-        "operationId": "Profebook.Controllers.FeedController.GetFeed",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/FeedModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Feed" ],
-        "summary": "Action for creating post in feed of owner that is specified by id.",
+        "tags": [ "Offers" ],
+        "summary": "Action for creating new offer.",
         "description": "Returns operation result.",
-        "operationId": "Profebook.Controllers.FeedController.CreatePost",
+        "operationId": "Profitcar.Controllers.OffersController.Create",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
             "name": "model",
             "in": "body",
-            "description": "Post to create.",
+            "description": "Model that should be created.",
             "required": false,
-            "schema": { "$ref": "#/definitions/PostModel" }
+            "schema": { "$ref": "#/definitions/ManageCarModel" }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ManagePostResult" }
+            "schema": { "$ref": "#/definitions/ManageCarResult" }
           }
         },
         "deprecated": false
       }
     },
-    "/api/feed/{id}/{type}/{postId}": {
-      "get": {
-        "tags": [ "Feed" ],
-        "summary": "Action for retrieving post(if offset is null) and comments specified by owner id and post id.",
-        "description": "Returns post with comments.",
-        "operationId": "Profebook.Controllers.FeedController.GetPost",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/PostModel" }
-          }
-        },
-        "deprecated": false
-      },
+    "/api/offers/my/{id}/{status}": {
       "put": {
-        "tags": [ "Feed" ],
-        "summary": "Action for editing post in feed of owner that is specified by id.",
+        "tags": [ "Offers" ],
+        "summary": "Action for changing offer's status. Currently affects only published(true)/unpublished(false).",
         "description": "Returns operation result.",
-        "operationId": "Profebook.Controllers.FeedController.EditPost",
+        "operationId": "Profitcar.Controllers.OffersController.ChangeOfferStatus",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Owner id (or alias if set).",
+            "description": "Offer's identifier.",
             "required": true,
             "type": "string"
           },
           {
-            "name": "type",
+            "name": "status",
             "in": "path",
-            "description": "Owner type.",
+            "description": "Status that should be set for offer.",
             "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Post to edit.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/PostModel" }
+            "type": "boolean"
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ManagePostResult" }
+            "schema": { "$ref": "#/definitions/ChangeStatusResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/offers/my/{id}/vehicle": {
+      "get": {
+        "tags": [ "Offers" ],
+        "summary": "Action for retrieving current vehicle model.",
+        "description": "Returns model for editing.",
+        "operationId": "Profitcar.Controllers.OffersController.GetVehicle",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Offer's identifier.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ManageCarModel" }
           }
         },
         "deprecated": false
       },
-      "post": {
-        "tags": [ "Feed" ],
-        "summary": "Action for creating comment to post specified by owner id and post id.",
+      "put": {
+        "tags": [ "Offers" ],
+        "summary": "Action for editing vehicle in offer.",
         "description": "Returns operation result.",
-        "operationId": "Profebook.Controllers.FeedController.CreateComment",
+        "operationId": "Profitcar.Controllers.OffersController.EditVehicle",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Owner id (or alias if set).",
+            "description": "Offer's identifier.",
             "required": true,
             "type": "string"
           },
           {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
             "name": "model",
             "in": "body",
-            "description": "Comment to create.",
+            "description": "Updated model that should be applied.",
             "required": false,
-            "schema": { "$ref": "#/definitions/CommentModel" }
+            "schema": { "$ref": "#/definitions/ManageCarModel" }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageCommentResult" }
+            "schema": { "$ref": "#/definitions/ManageCarResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/offers/my/{id}/offer": {
+      "get": {
+        "tags": [ "Offers" ],
+        "summary": "Action for retrieving current offer model.",
+        "description": "Returns model for editing.",
+        "operationId": "Profitcar.Controllers.OffersController.GetOffer",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Offer's identifier.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ManageOfferModel" }
           }
         },
         "deprecated": false
       },
-      "delete": {
-        "tags": [ "Feed" ],
-        "summary": "Action for deleting post in feed of owner that is specified by id.",
+      "put": {
+        "tags": [ "Offers" ],
+        "summary": "Action for editing offer's parameters.",
         "description": "Returns operation result.",
-        "operationId": "Profebook.Controllers.FeedController.DeletePost",
+        "operationId": "Profitcar.Controllers.OffersController.EditOffer",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Owner id (or alias if set).",
+            "description": "Offer's identifier.",
             "required": true,
             "type": "string"
           },
           {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
+            "name": "model",
+            "in": "body",
+            "description": "Updated model that should be applied.",
+            "required": false,
+            "schema": { "$ref": "#/definitions/ManageOfferModel" }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ManagePostResult" }
+            "schema": { "$ref": "#/definitions/ManageOfferResult" }
           }
         },
         "deprecated": false
       }
     },
-    "/api/feed/{id}/{type}/{postId}/{commentId}": {
+    "/api/offers/my/{id}/calendar": {
       "get": {
-        "tags": [ "Feed" ],
-        "summary": "Action for retrieving comment to post specified by owner id, post id and comment id",
-        "description": "Returns comment.",
-        "operationId": "Profebook.Controllers.FeedController.GetComment",
+        "tags": [ "Offers" ],
+        "summary": "Action for retrieving current calendar model.",
+        "description": "Returns model for editing.",
+        "operationId": "Profitcar.Controllers.OffersController.GetCalendar",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Owner id (or alias if set).",
+            "description": "Offer's identifier.",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "commentId",
-            "in": "path",
-            "description": "Comment Id in this post.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/CommentModel" }
+            "schema": { "$ref": "#/definitions/ManageCalendarModel" }
           }
         },
         "deprecated": false
       },
       "put": {
-        "tags": [ "Feed" ],
-        "summary": "Action for editing comment to post specified by owner id and post id.",
+        "tags": [ "Offers" ],
+        "summary": "Action for editing schedule and one-time offers.",
         "description": "Returns operation result.",
-        "operationId": "Profebook.Controllers.FeedController.EditComment",
+        "operationId": "Profitcar.Controllers.OffersController.EditCalendar",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Owner id (or alias if set).",
+            "description": "Offer's identifier.",
             "required": true,
             "type": "string"
           },
           {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "commentId",
-            "in": "path",
-            "description": "Comment Id in this post.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
             "name": "model",
             "in": "body",
-            "description": "Comment to to edit.",
+            "description": "Updated model that should be applied.",
             "required": false,
-            "schema": { "$ref": "#/definitions/CommentModel" }
+            "schema": { "$ref": "#/definitions/ManageCalendarModel" }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageCommentResult" }
+            "schema": { "$ref": "#/definitions/ManageCalendarResult" }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/offers/my/{id}/photos": {
+      "get": {
+        "tags": [ "Offers" ],
+        "summary": "Action for retrieving current photos model.",
+        "description": "Returns model for editing.",
+        "operationId": "Profitcar.Controllers.OffersController.GetPhotos",
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Offer's identifier.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ManagePhotosModel" }
           }
         },
         "deprecated": false
       },
-      "delete": {
-        "tags": [ "Feed" ],
-        "summary": "Action for deleting comment to post specified by owner id and post id.",
+      "post": {
+        "tags": [ "Offers" ],
+        "summary": "Action for adding photos to offer. Depends on FE realisation (flowjs/ng-flow).",
         "description": "Returns operation result.",
-        "operationId": "Profebook.Controllers.FeedController.DeleteComment",
+        "operationId": "Profitcar.Controllers.OffersController.AddPhoto",
         "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "commentId",
-            "in": "path",
-            "description": "Comment Id in this post.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageCommentResult" }
+            "schema": { "$ref": "#/definitions/AddPhotoResult" }
           }
         },
         "deprecated": false
       }
     },
-    "/api/feed/{id}/{type}/{postId}/likes": {
-      "get": {
-        "tags": [ "Feed" ],
-        "summary": "Action for retrieving likes to post specified by owner id and post id.",
-        "description": "Returns likes.",
-        "operationId": "Profebook.Controllers.FeedController.GetPostLikes",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/LikesModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Feed" ],
-        "summary": "Action for liking post specified by owner id and post id.",
-        "description": "Returns like.",
-        "operationId": "Profebook.Controllers.FeedController.LikePost",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageLikeResult" }
-          }
-        },
-        "deprecated": false
-      },
+    "/api/offers/my/{id}/photos/{photoId}": {
       "delete": {
-        "tags": [ "Feed" ],
-        "summary": "Action for deleting like to post specified by owner id and post id.",
+        "tags": [ "Offers" ],
+        "summary": "Action for deleting specified photo in offer.",
         "description": "Returns operation result.",
-        "operationId": "Profebook.Controllers.FeedController.DislikePost",
+        "operationId": "Profitcar.Controllers.OffersController.DeletePhoto",
         "produces": [ "text/plain", "application/json", "text/json" ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Owner id (or alias if set).",
+            "description": "Offer's identifier.",
             "required": true,
             "type": "string"
           },
           {
-            "name": "type",
+            "name": "photoId",
             "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
+            "description": "Photo's identifier in offer.",
             "required": true,
             "type": "integer",
             "format": "int64"
@@ -1041,1322 +517,7 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageLikeResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/feed/{id}/{type}/{postId}/{commentId}/likes": {
-      "get": {
-        "tags": [ "Feed" ],
-        "summary": "Action for retrieving likes to comment in post specified by owner id and post id.",
-        "description": "Returns likes.",
-        "operationId": "Profebook.Controllers.FeedController.GetCommentLikes",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "commentId",
-            "in": "path",
-            "description": "Comment Id in this post.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/LikesModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Feed" ],
-        "summary": "Action for liking comment in post specified by owner id and post id.",
-        "description": "Returns like.",
-        "operationId": "Profebook.Controllers.FeedController.LikeComment",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "commentId",
-            "in": "path",
-            "description": "Comment Id in this post.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageLikeResult" }
-          }
-        },
-        "deprecated": false
-      },
-      "delete": {
-        "tags": [ "Feed" ],
-        "summary": "Action for deleting like to comment in post specified by owner id and post id.",
-        "description": "Returns operation result.",
-        "operationId": "Profebook.Controllers.FeedController.DislikeComment",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post Id in this feed.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "commentId",
-            "in": "path",
-            "description": "Comment Id in this post.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageLikeResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/files/{id}/{type}": {
-      "get": {
-        "tags": [ "Files" ],
-        "summary": "Action for retrieving all files from owner that is specified by id.",
-        "operationId": "Profebook.Controllers.FilesController.GetAll",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/FilesModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Files" ],
-        "summary": "Action for creating file.",
-        "operationId": "Profebook.Controllers.FilesController.Create",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "File to create.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/FileModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageFileResult" }
-          }
-        },
-        "deprecated": false
-      },
-      "delete": {
-        "tags": [ "Files" ],
-        "summary": "Action for deleting multiple files with specified fileIds from owner with specified id.",
-        "operationId": "Profebook.Controllers.FilesController.DeleteMultiple",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Collection of ids of files to delete.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/FilesDeleteModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageFileResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/files/{id}/{type}/{fileId}": {
-      "get": {
-        "tags": [ "Files" ],
-        "summary": "Action for retrieving file with specified fileId from owner with specified id.",
-        "operationId": "Profebook.Controllers.FilesController.Get",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "description": "Id of the file.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/FileModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "put": {
-        "tags": [ "Files" ],
-        "summary": "Action for editing file with specified fileId from owner with specified id.",
-        "operationId": "Profebook.Controllers.FilesController.Edit",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "description": "Id of the file.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "File to edit.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/FileModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageFileResult" }
-          }
-        },
-        "deprecated": false
-      },
-      "delete": {
-        "tags": [ "Files" ],
-        "summary": "Action for deleting file with specified fileId from owner with specified id.",
-        "operationId": "Profebook.Controllers.FilesController.Delete",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Owner type.",
-            "required": true,
-            "type": "string",
-            "enum": [ "User", "Group", "Company" ]
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "description": "Id of the file.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageFileResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/groups/{id}": {
-      "get": {
-        "tags": [ "Groups" ],
-        "summary": "Action for getting group with specified id (or alias if set).",
-        "description": "Returns company model.",
-        "operationId": "Profebook.Controllers.GroupsController.Get",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Group id (or alias if set).",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/GroupModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "put": {
-        "tags": [ "Groups" ],
-        "summary": "Action for editing existed group.",
-        "description": "Returns result of editing with errors if needed.",
-        "operationId": "Profebook.Controllers.GroupsController.Edit",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Group id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Model for editing the group.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/GroupModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageGroupResult" }
-          }
-        },
-        "deprecated": false
-      },
-      "delete": {
-        "tags": [ "Groups" ],
-        "summary": "Action for deleting existed Group.",
-        "description": "Returns result of deleting with errors if needed.",
-        "operationId": "Profebook.Controllers.GroupsController.Delete",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Group id (or alias if set).",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageGroupResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/groups": {
-      "get": {
-        "tags": [ "Groups" ],
-        "summary": "Action for getting initial group profile.",
-        "description": "Returns initial model.",
-        "operationId": "Profebook.Controllers.GroupsController.GetInitial",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/GroupModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Groups" ],
-        "summary": "Action for creating new group.",
-        "description": "Returns result of creation with errors if needed.",
-        "operationId": "Profebook.Controllers.GroupsController.Create",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Model for group creation.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/GroupModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageGroupResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/messanger": {
-      "get": {
-        "tags": [ "Messanger" ],
-        "summary": "Action for getting dialogues collection.",
-        "description": "Returns dialogues collection.",
-        "operationId": "Profebook.Controllers.MessangerController.GetAll",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/DialoguesModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Messanger" ],
-        "summary": "Action for creating new dialogue. If it is dialogue between only 2 owners and such dialogue is already exists, first message will be added to that dialogue as new and no dialogue will be created.",
-        "description": "Returns result of creation.",
-        "operationId": "Profebook.Controllers.MessangerController.Create",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Dialogue model for creation.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/CreateDialogueModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/DialogueManageResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/messanger/{query}/search": {
-      "get": {
-        "tags": [ "Messanger" ],
-        "summary": "Action for searching dialogues with given name or member.",
-        "description": "Returns dialogues collection.",
-        "operationId": "Profebook.Controllers.MessangerController.Search",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "query",
-            "in": "path",
-            "description": "Search query.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/DialoguesModel" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/messanger/{id}": {
-      "get": {
-        "tags": [ "Messanger" ],
-        "summary": "Action for getting dialogue with specified id and messages in it.",
-        "description": "Returns dialogue model.",
-        "operationId": "Profebook.Controllers.MessangerController.Get",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Dialogue identifier.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/DialogueModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "put": {
-        "tags": [ "Messanger" ],
-        "summary": "Action for editing existing dialogue.",
-        "description": "Returns result of editing.",
-        "operationId": "Profebook.Controllers.MessangerController.Edit",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Dialogue identifier.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Dialogue model for editing.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/EditDialogueModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/DialogueManageResult" }
-          }
-        },
-        "deprecated": false
-      },
-      "delete": {
-        "tags": [ "Messanger" ],
-        "summary": "Action for marking existing dialogue as deleted for current owner.",
-        "description": "Returns result of deleting.",
-        "operationId": "Profebook.Controllers.MessangerController.Delete",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Dialogue identifier.",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/DialogueManageResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/owners/{id}": {
-      "get": {
-        "tags": [ "Owners" ],
-        "summary": "Action for checking type of owner(user, group, company) related to this id/alias(if set).",
-        "description": "Returns owner type.",
-        "operationId": "Profebook.Controllers.OwnersController.CheckType",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/FullOwnerModel" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/owners/{alias}/check": {
-      "get": {
-        "tags": [ "Owners" ],
-        "summary": "Action for checking if this alias is available to use.",
-        "description": "Returns check result.",
-        "operationId": "Profebook.Controllers.OwnersController.CheckAvailability",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "alias",
-            "in": "path",
-            "description": "Owner alias.",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "type": "boolean" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/pages": {
-      "get": {
-        "tags": [ "Pages" ],
-        "summary": "Action for retrieving available pages.",
-        "description": "Returns page collection.",
-        "operationId": "Profebook.Controllers.PagesController.GetAll",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/PagesModel" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/pages/{id}": {
-      "get": {
-        "tags": [ "Pages" ],
-        "summary": "Action for retrieving page by id.",
-        "description": "Returns page.",
-        "operationId": "Profebook.Controllers.PagesController.Get",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Page identifier.",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/PageModel" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/responses/{id}": {
-      "get": {
-        "tags": [ "Responses" ],
-        "summary": "Action for retrieving all responses from owner(could have only \"user\" type) specified by id.",
-        "operationId": "Profebook.Controllers.ResponsesController.GetAllForUser",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ResponsesModel" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/responses/{id}/{vacancyId}": {
-      "get": {
-        "tags": [ "Responses" ],
-        "summary": "Action for retrieving all responses to vacancy specified by vacancyId and owner id.",
-        "operationId": "Profebook.Controllers.ResponsesController.GetAllForVacancy",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vacancyId",
-            "in": "path",
-            "description": "Id of the vacancy.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ResponsesModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Responses" ],
-        "summary": "Action for creating response to vacancy specified by vacancyId and owner id.",
-        "operationId": "Profebook.Controllers.ResponsesController.Create",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vacancyId",
-            "in": "path",
-            "description": "Id of the vacancy.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Response to create.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/ResponseModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageResponseResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/responses/{id}/{vacancyId}/{responseId}": {
-      "get": {
-        "tags": [ "Responses" ],
-        "summary": "Action for retrieving response with specified responseId from vacancy specified by vacancyId and owner id.",
-        "operationId": "Profebook.Controllers.ResponsesController.Get",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vacancyId",
-            "in": "path",
-            "description": "Id of the vacancy.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "responseId",
-            "in": "path",
-            "description": "Id of the response.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ResponseModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "put": {
-        "tags": [ "Responses" ],
-        "summary": "Action for editing response with specified responseId from vacancy specified by vacancyId and owner id.",
-        "operationId": "Profebook.Controllers.ResponsesController.Edit",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vacancyId",
-            "in": "path",
-            "description": "Id of the vacancy.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "responseId",
-            "in": "path",
-            "description": "Id of the response.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Response to edit.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/ResponseModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageResponseResult" }
-          }
-        },
-        "deprecated": false
-      },
-      "delete": {
-        "tags": [ "Responses" ],
-        "summary": "Action for deleting response with specified responseId from vacancy specified by vacancyId and owner id.",
-        "operationId": "Profebook.Controllers.ResponsesController.Delete",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vacancyId",
-            "in": "path",
-            "description": "Id of the vacancy.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "responseId",
-            "in": "path",
-            "description": "Id of the response.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageResponseResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/search/{type}/{query}": {
-      "get": {
-        "tags": [ "Search" ],
-        "summary": "Action for general search.",
-        "operationId": "Profebook.Controllers.SearchController.Search",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Type of searched entities.",
-            "required": true,
-            "type": "string",
-            "enum": [ "All", "Peoples", "Groups", "Companies", "Connections", "News", "Vacancies", "Responses", "Files", "Messages" ]
-          },
-          {
-            "name": "query",
-            "in": "path",
-            "description": "Parameter that used to search",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/SearchResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/users": {
-      "get": {
-        "tags": [ "Users" ],
-        "summary": "Action for getting initial profile.",
-        "description": "Returns initial profile.",
-        "operationId": "Profebook.Controllers.UsersController.GetInitial",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/CreateProfileModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Users" ],
-        "summary": "Action for initial profile creation.",
-        "description": "Returns create result.",
-        "operationId": "Profebook.Controllers.UsersController.Create",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Model for initial profile creation.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/CreateProfileModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/CreateProfileResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/users/{id}/edit": {
-      "get": {
-        "tags": [ "Users" ],
-        "summary": "Action for retrieving profile for edit.",
-        "description": "Returns profile.",
-        "operationId": "Profebook.Controllers.UsersController.GetForEdit",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "User id (or alias if set).",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/EditProfileModel" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/users/{id}": {
-      "get": {
-        "tags": [ "Users" ],
-        "summary": "Action for getting user profile with specified id (or alias if set).",
-        "description": "Returns user model.",
-        "operationId": "Profebook.Controllers.UsersController.Get",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "User id (or alias if set).",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ProfileModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "put": {
-        "tags": [ "Users" ],
-        "summary": "Action for editing profile.",
-        "description": "Returns edit result.",
-        "operationId": "Profebook.Controllers.UsersController.Edit",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "User id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Model for profile editing.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/EditProfileModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/EditProfileResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/vacancies/{id}": {
-      "get": {
-        "tags": [ "Vacancies" ],
-        "summary": "Action for retrieving all vacancies from owner(it could have only \"company\" type) that is specified by id.",
-        "operationId": "Profebook.Controllers.VacanciesController.GetAll",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "null means collection is loading from start, else - loading after offset",
-            "required": false,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/VacanciesModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "post": {
-        "tags": [ "Vacancies" ],
-        "summary": "Action for creating vacancy.",
-        "operationId": "Profebook.Controllers.VacanciesController.Create",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Vacancy to create.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/VacancyModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageVacancyResult" }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/vacancies/{id}/{vacancyId}": {
-      "get": {
-        "tags": [ "Vacancies" ],
-        "summary": "Action for retrieving vacancy with specified vacancyId from owner with specified id.",
-        "operationId": "Profebook.Controllers.VacanciesController.Get",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vacancyId",
-            "in": "path",
-            "description": "Id of the vacancy.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/VacancyModel" }
-          }
-        },
-        "deprecated": false
-      },
-      "put": {
-        "tags": [ "Vacancies" ],
-        "summary": "Action for editing vacancy with specified vacancyId from owner with specified id.",
-        "operationId": "Profebook.Controllers.VacanciesController.Edit",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vacancyId",
-            "in": "path",
-            "description": "Id of the vacancy.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "model",
-            "in": "body",
-            "description": "Vacancy to edit.",
-            "required": false,
-            "schema": { "$ref": "#/definitions/VacancyModel" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageVacancyResult" }
-          }
-        },
-        "deprecated": false
-      },
-      "delete": {
-        "tags": [ "Vacancies" ],
-        "summary": "Action for deleting vacancy with specified vacancyId from owner with specified id.",
-        "operationId": "Profebook.Controllers.VacanciesController.Delete",
-        "produces": [ "text/plain", "application/json", "text/json" ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Owner id (or alias if set).",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vacancyId",
-            "in": "path",
-            "description": "Id of the vacancy.",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ManageVacancyResult" }
+            "schema": { "$ref": "#/definitions/DeletePhotoResult" }
           }
         },
         "deprecated": false
@@ -2402,7 +563,7 @@
     },
     "RegisterModel": {
       "description": "Model for registration.",
-      "required": [ "Email", "Password" ],
+      "required": [ "Email", "Password", "ConfirmPassword", "IsAgreed" ],
       "type": "object",
       "properties": {
         "Email": {
@@ -2414,6 +575,16 @@
           "maxLength": 100,
           "minLength": 6,
           "type": "string"
+        },
+        "ConfirmPassword": {
+          "description": "Password confirmation.",
+          "maxLength": 100,
+          "minLength": 6,
+          "type": "string"
+        },
+        "IsAgreed": {
+          "description": "True if agreed, false if not.",
+          "type": "boolean"
         }
       }
     },
@@ -2425,10 +596,22 @@
           "description": "True if succeeds, false if not.",
           "type": "boolean"
         },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "EmailInvalid", "EmailExists", "PasswordInvalid", "Unknown" ],
+        "Id": {
+          "description": "User's id if register is successful, Null if not.",
           "type": "string"
+        },
+        "RegistrationStep": {
+          "description": "Registration step where user have to be. Null if register failed.",
+          "enum": [ "EmailConfirmation", "ProfileCreation", "Done" ],
+          "type": "string"
+        },
+        "Errors": {
+          "description": "Actual errors array.",
+          "type": "array",
+          "items": {
+            "enum": [ "EmailInvalid", "EmailExists", "PasswordInvalid", "ConfirmPasswordInvalid", "AgreeRequired", "Unknown" ],
+            "type": "string"
+          }
         }
       }
     },
@@ -2465,1611 +648,738 @@
           "description": "True if succeeds, false if not.",
           "type": "boolean"
         },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "OldPasswordInvalid", "NewPasswordInvalid", "ConfirmPasswordInvalid", "Unknown" ],
-          "type": "string"
+        "Errors": {
+          "description": "Actual errors array.",
+          "type": "array",
+          "items": {
+            "enum": [ "OldPasswordInvalid", "NewPasswordInvalid", "ConfirmPasswordInvalid", "Unknown" ],
+            "type": "string"
+          }
         }
       }
     },
     "SettingsModel": {
       "description": "Model for viewing and editing user settings.",
-      "type": "object",
-      "properties": {
-        "IsSearchingForJob": {
-          "description": "True if user is searching a job, false if not.",
-          "type": "boolean"
-        },
-        "IsOfferingJob": {
-          "description": "True if user offers a job, false if not.",
-          "type": "boolean"
-        },
-        "IsOfferingBusiness": {
-          "description": "True if user offers a business, false if not.",
-          "type": "boolean"
-        },
-        "IsNotificationSoundOn": {
-          "description": "True if user wants to hear sound when gets notifications, false if not.",
-          "type": "boolean"
-        },
-        "IsIpGeolocationOn": {
-          "description": "True if user wants to use location by IP, false if not.",
-          "type": "boolean"
-        },
-        "IsPhoneNumberShown": {
-          "description": "True if shown, false if hidden.",
-          "type": "boolean"
-        },
-        "IsEmailShown": {
-          "description": "True if shown, false if hidden.",
-          "type": "boolean"
-        },
-        "BirthdayShownFor": {
-          "description": "Birthday's visibility option.",
-          "enum": [ "All", "None", "HideYear" ],
-          "type": "string"
-        },
-        "MessagesAcceptableFrom": {
-          "description": "Messages accept criteria option.",
-          "enum": [ "All", "Connections" ],
-          "type": "string"
-        },
-        "PostsAcceptableFrom": {
-          "description": "Posts accept criteria option.",
-          "enum": [ "All", "Connections" ],
-          "type": "string"
-        },
-        "ContactsShownFor": {
-          "description": "Contacts visibility option.",
-          "enum": [ "All", "Connections" ],
-          "type": "string"
-        }
-      }
-    },
-    "CompanyModel": {
-      "description": "Basic model that describes company.",
-      "required": [ "Name", "Address", "Country", "City" ],
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Id or alias(if set) of company. Null if company isn't exist yet.",
-          "type": "string"
-        },
-        "Name": {
-          "description": "Company name.",
-          "type": "string"
-        },
-        "Address": {
-          "description": "Address in selected city.",
-          "type": "string"
-        },
-        "Country": {
-          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
-          "type": "string"
-        },
-        "City": {
-          "description": "City (for now is only string, but will be changed to city id(integer) later).",
-          "type": "string"
-        },
-        "Email": {
-          "description": "Company's email.",
-          "type": "string"
-        },
-        "Facebook": {
-          "description": "Link to the company's facebook account.",
-          "type": "string"
-        },
-        "Vkontakte": {
-          "description": "Link to the company's vkontakte account.",
-          "type": "string"
-        },
-        "Twitter": {
-          "description": "Link to the company's twitter account.",
-          "type": "string"
-        },
-        "GooglePlus": {
-          "description": "Link to the company's g+ account.",
-          "type": "string"
-        },
-        "Telephone": {
-          "description": "Phone number of company.",
-          "type": "string"
-        },
-        "Site": {
-          "description": "Link to the website of company.",
-          "type": "string"
-        },
-        "About": {
-          "description": "Some summary text about company.",
-          "type": "string"
-        },
-        "Description": {
-          "description": "Some description text about company.",
-          "type": "string"
-        }
-      }
-    },
-    "ManageCompanyResult": {
-      "description": "Wrapper model for creation/edit/delete result.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Id (or alias if set) of created/edited company.",
-          "type": "string"
-        },
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "Restricted", "IdNotExists", "AliasExists", "AliasInvalid", "NameRequired", "AddressRequired", "CountryRequired", "CityRequired", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "CreateCompanyModel": {
-      "description": "Model that describes company for creation process.",
-      "required": [ "Name", "Address", "Country", "City" ],
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Id or alias(if set) of company. Null if company isn't exist yet.",
-          "type": "string"
-        },
-        "Name": {
-          "description": "Company name.",
-          "type": "string"
-        },
-        "Address": {
-          "description": "Address in selected city.",
-          "type": "string"
-        },
-        "Country": {
-          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
-          "type": "string"
-        },
-        "City": {
-          "description": "City (for now is only string, but will be changed to city id(integer) later).",
-          "type": "string"
-        },
-        "Telephone": {
-          "description": "Phone number of company.",
-          "type": "string"
-        },
-        "Site": {
-          "description": "Link to the website of company.",
-          "type": "string"
-        },
-        "About": {
-          "description": "Some summary text about company.",
-          "type": "string"
-        }
-      }
-    },
-    "ConnectionsModel": {
-      "description": "Wrapper model for part of connections collection.",
-      "type": "object",
-      "properties": {
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/ConnectionModel" }
-        },
-        "StartIndex": {
-          "format": "int64",
-          "description": "Start index of this part.",
-          "type": "integer"
-        },
-        "EndIndex": {
-          "format": "int64",
-          "description": "End index of this part.",
-          "type": "integer"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "ConnectionModel": {
-      "description": "Model that describes connection and it's state.",
-      "type": "object",
-      "properties": {
-        "State": {
-          "description": "State of this connection.",
-          "enum": [ "NotExisted", "Accepted", "WaitingAccept", "NeededAccept", "Blacklisted", "Banned" ],
-          "type": "string"
-        },
-        "Id": {
-          "description": "Id or alias(if set) of owner.",
-          "type": "string"
-        },
-        "FullName": {
-          "description": "Shown name of owner.",
-          "type": "string"
-        },
-        "Description": {
-          "description": "Short description for owner.",
-          "type": "string"
-        },
-        "LastActivityTime": {
-          "format": "date-time",
-          "description": "Date and time of last activity. If less then 15 minutes ago then online, otherwise - offline.",
-          "type": "string"
-        },
-        "DefaultType": {
-          "description": "Default type of owner. Needed to properly select further actions(HTML template, FE controller, etc.).",
-          "enum": [ "User", "Group", "Company" ],
-          "type": "string"
-        },
-        "Types": {
-          "description": "All types assigned to this id or alias(if set).",
-          "type": "array",
-          "items": {
-            "enum": [ "User", "Group", "Company" ],
-            "type": "string"
-          }
-        },
-        "ConnectionsCount": {
-          "format": "int32",
-          "description": "Count of connections of this owner.",
-          "type": "integer"
-        },
-        "IsOwnedByCurrentUser": {
-          "description": "True if currently authenticated user has permissions to manage this owner, false if not.",
-          "type": "boolean"
-        }
-      }
-    },
-    "ManageConnectionResult": {
-      "description": "Wrapper model for creation/edit/delete result.",
-      "type": "object",
-      "properties": {
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "Restricted", "IdNotExists", "ConnectionNotExists", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "FeedModel": {
-      "description": "Wrapper model for part of posts collection. May be will include some additional fields.",
-      "type": "object",
-      "properties": {
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/PostModel" }
-        },
-        "StartIndex": {
-          "format": "int64",
-          "description": "Start index of this part.",
-          "type": "integer"
-        },
-        "EndIndex": {
-          "format": "int64",
-          "description": "End index of this part.",
-          "type": "integer"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "PostModel": {
-      "description": "Model for post, also contains all fields needed for comments loading by parts.",
-      "required": [ "Content" ],
-      "type": "object",
-      "properties": {
-        "Author": {
-          "$ref": "#/definitions/FullOwnerModel",
-          "description": "Author of the post."
-        },
-        "Id": {
-          "format": "int64",
-          "description": "Id of post in Author's feed.",
-          "type": "integer"
-        },
-        "Content": {
-          "description": "Actual content of post. Only this field required for creating or editing post.",
-          "type": "string"
-        },
-        "Date": {
-          "format": "date-time",
-          "description": "Date and time when post was created. Can be null only when creating or editing post.",
-          "type": "string"
-        },
-        "Repost": {
-          "$ref": "#/definitions/PostModel",
-          "description": "If not null contains reposted post without comments."
-        },
-        "Likes": {
-          "$ref": "#/definitions/LikesModel",
-          "description": "Likes of this post (also includes likes from repost of this post but excludes likes of original post if this is repost)."
-        },
-        "Reposts": {
-          "$ref": "#/definitions/LikesModel",
-          "description": "Reposts of this post (also includes reposts from repost of this post but excludes reposts of original post if this is repost)."
-        },
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/CommentModel" }
-        },
-        "StartIndex": {
-          "format": "int64",
-          "description": "Start index of this part.",
-          "type": "integer"
-        },
-        "EndIndex": {
-          "format": "int64",
-          "description": "End index of this part.",
-          "type": "integer"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "FullOwnerModel": {
-      "description": "Model that describes owner and all info about it.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Id or alias(if set) of owner.",
-          "type": "string"
-        },
-        "FullName": {
-          "description": "Shown name of owner.",
-          "type": "string"
-        },
-        "Description": {
-          "description": "Short description for owner.",
-          "type": "string"
-        },
-        "LastActivityTime": {
-          "format": "date-time",
-          "description": "Date and time of last activity. If less then 15 minutes ago then online, otherwise - offline.",
-          "type": "string"
-        },
-        "DefaultType": {
-          "description": "Default type of owner. Needed to properly select further actions(HTML template, FE controller, etc.).",
-          "enum": [ "User", "Group", "Company" ],
-          "type": "string"
-        },
-        "Types": {
-          "description": "All types assigned to this id or alias(if set).",
-          "type": "array",
-          "items": {
-            "enum": [ "User", "Group", "Company" ],
-            "type": "string"
-          }
-        },
-        "ConnectionsCount": {
-          "format": "int32",
-          "description": "Count of connections of this owner.",
-          "type": "integer"
-        },
-        "IsOwnedByCurrentUser": {
-          "description": "True if currently authenticated user has permissions to manage this owner, false if not.",
-          "type": "boolean"
-        }
-      }
-    },
-    "LikesModel": {
-      "description": "Wrapper model for part of likes collection.",
-      "type": "object",
-      "properties": {
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/FullOwnerModel" }
-        },
-        "StartIndex": {
-          "format": "int64",
-          "description": "Start index of this part.",
-          "type": "integer"
-        },
-        "EndIndex": {
-          "format": "int64",
-          "description": "End index of this part.",
-          "type": "integer"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "CommentModel": {
-      "description": "Model for comment.",
-      "required": [ "Content" ],
-      "type": "object",
-      "properties": {
-        "Author": {
-          "$ref": "#/definitions/FullOwnerModel",
-          "description": "Author of the comment."
-        },
-        "Id": {
-          "format": "int64",
-          "description": "Id of comment in post.",
-          "type": "integer"
-        },
-        "Content": {
-          "description": "Actual content of comment. Only this field required for creating or editing comment.",
-          "type": "string"
-        },
-        "Date": {
-          "format": "date-time",
-          "description": "Date and time when post was created. Can be null only when creating or editing post.",
-          "type": "string"
-        },
-        "Likes": {
-          "$ref": "#/definitions/LikesModel",
-          "description": "Likes of this comment."
-        }
-      }
-    },
-    "ManagePostResult": {
-      "description": "Wrapper model for like/dislike result.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "format": "int64",
-          "description": "Id of post in feed.",
-          "type": "integer"
-        },
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "Restricted", "IdNotExists", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "ManageCommentResult": {
-      "description": "Wrapper model for comment creation/edit/delete result.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "format": "int64",
-          "description": "Id of comment in post.",
-          "type": "integer"
-        },
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "Restricted", "IdNotExists", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "ManageLikeResult": {
-      "description": "Wrapper model for like/dislike result.",
-      "type": "object",
-      "properties": {
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "Restricted", "IdNotExists", "LikeNotExists", "LikeExists", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "FilesModel": {
-      "description": "Wrapper model for part of files collection.",
-      "type": "object",
-      "properties": {
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/FileModel" }
-        },
-        "StartIndex": {
-          "format": "int64",
-          "description": "Start index of this part.",
-          "type": "integer"
-        },
-        "EndIndex": {
-          "format": "int64",
-          "description": "End index of this part.",
-          "type": "integer"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "FileModel": {
-      "description": "Model for file.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "format": "int64",
-          "description": "Id of file.",
-          "type": "integer"
-        },
-        "Name": {
-          "description": "File name.",
-          "type": "string"
-        },
-        "Date": {
-          "format": "date-time",
-          "description": "Date and time of creation.",
-          "type": "string"
-        },
-        "Size": {
-          "format": "int64",
-          "description": "File size in bytes.",
-          "type": "integer"
-        },
-        "Type": {
-          "description": "Type of file.",
-          "enum": [ "Image", "Other" ],
-          "type": "string"
-        },
-        "Path": {
-          "description": "Absolute path for downloading file.",
-          "type": "string"
-        },
-        "ThumbnailPath": {
-          "description": "Absolute path for thumbnail. Exists only for Type == Image.",
-          "type": "string"
-        }
-      }
-    },
-    "ManageFileResult": {
-      "description": "Wrapper model for file creation/edit/delete result.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "format": "int64",
-          "description": "Id of file.",
-          "type": "integer"
-        },
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "Restricted", "IdNotExists", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "FilesDeleteModel": {
-      "description": "Model for deleting multiple files.",
-      "type": "object",
-      "properties": {
-        "Ids": {
-          "description": "Array of file ids to delete.",
-          "type": "array",
-          "items": {
-            "format": "int64",
-            "type": "integer"
-          }
-        }
-      }
-    },
-    "GroupModel": {
-      "description": "Basic model that describes group.",
-      "required": [ "Name" ],
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Id or alias(if set) of group. Null if group isn't exist yet.",
-          "type": "string"
-        },
-        "Name": {
-          "description": "Group name.",
-          "type": "string"
-        },
-        "IsPublic": {
-          "description": "True if group is public, false if private.",
-          "type": "boolean"
-        },
-        "Facebook": {
-          "description": "Link to the group's facebook account.",
-          "type": "string"
-        },
-        "Vkontakte": {
-          "description": "Link to the group's vkontakte account.",
-          "type": "string"
-        },
-        "Twitter": {
-          "description": "Link to the group's twitter account.",
-          "type": "string"
-        },
-        "GooglePlus": {
-          "description": "Link to the group's g+ account.",
-          "type": "string"
-        },
-        "Site": {
-          "description": "Link to the website of group.",
-          "type": "string"
-        },
-        "About": {
-          "description": "Some summary text about group.",
-          "type": "string"
-        },
-        "Description": {
-          "description": "Some description text about group.",
-          "type": "string"
-        }
-      }
-    },
-    "ManageGroupResult": {
-      "description": "Wrapper model for creation/edit/delete result.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Id (or alias if set) of group.",
-          "type": "string"
-        },
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "Restricted", "IdNotExists", "AliasExists", "AliasInvalid", "NameRequired", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "DialoguesModel": {
-      "description": "Wrapper model for part of dialogues collection. May be will include some additional fields.",
-      "type": "object",
-      "properties": {
-        "UnreadCount": {
-          "format": "int64",
-          "description": "Count of dialogues that has at least one unread message.",
-          "type": "integer"
-        },
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/DialogueModel" }
-        },
-        "StartIndex": {
-          "format": "date-time",
-          "description": "Start index of this part.",
-          "type": "string"
-        },
-        "EndIndex": {
-          "format": "date-time",
-          "description": "End index of this part.",
-          "type": "string"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "DialogueModel": {
-      "description": "Model that describes dialogue and messages in it.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Dialogue identifier.",
-          "type": "string"
-        },
-        "Name": {
-          "description": "Name of the dialogue.",
-          "type": "string"
-        },
-        "Members": {
-          "$ref": "#/definitions/MembersModel",
-          "description": "Part of collection of members."
-        },
-        "LastReadTime": {
-          "format": "date-time",
-          "description": "Last time when current owner read this dialogue.",
-          "type": "string"
-        },
-        "UnreadCount": {
-          "format": "int64",
-          "description": "Count of unread messages.",
-          "type": "integer"
-        },
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/MessageModel" }
-        },
-        "StartIndex": {
-          "format": "int64",
-          "description": "Start index of this part.",
-          "type": "integer"
-        },
-        "EndIndex": {
-          "format": "int64",
-          "description": "End index of this part.",
-          "type": "integer"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "MembersModel": {
-      "description": "Wrapper model for part of owners collection.",
-      "type": "object",
-      "properties": {
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/OwnerModel" }
-        },
-        "StartIndex": {
-          "format": "int64",
-          "description": "Start index of this part.",
-          "type": "integer"
-        },
-        "EndIndex": {
-          "format": "int64",
-          "description": "End index of this part.",
-          "type": "integer"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "MessageModel": {
-      "description": "Model for message in dialogue.",
-      "type": "object",
-      "properties": {
-        "Author": {
-          "$ref": "#/definitions/OwnerModel",
-          "description": "Author of message."
-        },
-        "Content": {
-          "description": "Message content. May be will contain JSON object if it is system message.",
-          "type": "string"
-        },
-        "PostTime": {
-          "format": "date-time",
-          "description": "Time when message was posted.",
-          "type": "string"
-        },
-        "IsSystem": {
-          "description": "True if it is system message (like adding new member, renaming, etc.), false if not.",
-          "type": "boolean"
-        }
-      }
-    },
-    "OwnerModel": {
-      "description": "Model that describes owner who acts or to which action is applied.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Id or alias(if set) of owner.",
-          "type": "string"
-        },
-        "Type": {
-          "description": "Type of owner.",
-          "enum": [ "User", "Group", "Company" ],
-          "type": "string"
-        }
-      }
-    },
-    "CreateDialogueModel": {
-      "description": "Model for creating the dialogue.",
+      "required": [ "Name", "Surname" ],
       "type": "object",
       "properties": {
         "Name": {
-          "description": "Name for dialogue. If empty name will be created from members' names.",
-          "type": "string"
-        },
-        "Members": {
-          "description": "Members to add in dialogue.",
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "Message": {
-          "$ref": "#/definitions/MessageModel",
-          "description": "First message for this dialogue."
-        }
-      }
-    },
-    "DialogueManageResult": {
-      "description": "Model that describes result of managing the dialogue (create, edit, delete).",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Dialogue identifier.",
-          "type": "string"
-        },
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "NotExists", "Restricted", "MembersInvalid" ],
-          "type": "string"
-        }
-      }
-    },
-    "EditDialogueModel": {
-      "description": "Model for editing the dialogue.",
-      "type": "object",
-      "properties": {
-        "Name": {
-          "description": "New name for dialogue. If empty name will be created from members' names.",
-          "type": "string"
-        },
-        "MembersToAdd": {
-          "description": "Array of members' id's that should be added to dialogue.",
-          "type": "array",
-          "items": { "type": "string" }
-        }
-      }
-    },
-    "PagesModel": {
-      "description": "Wrapper model for pages collection.",
-      "type": "object",
-      "properties": {
-        "Pages": {
-          "description": "Actually pages collection.",
-          "type": "array",
-          "items": { "$ref": "#/definitions/PageModel" }
-        }
-      }
-    },
-    "PageModel": {
-      "description": "Model for page.",
-      "type": "object",
-      "properties": {
-        "Id": {
-          "description": "Page id.",
-          "type": "string"
-        },
-        "Name": {
-          "description": "Name to display for links.",
-          "type": "string"
-        },
-        "Content": {
-          "description": "Actual content of page with html markup.",
-          "type": "string"
-        }
-      }
-    },
-    "ResponsesModel": {
-      "description": "Wrapper model for part of responses collection.",
-      "type": "object",
-      "properties": {
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/ResponseModel" }
-        },
-        "StartIndex": {
-          "format": "int64",
-          "description": "Start index of this part.",
-          "type": "integer"
-        },
-        "EndIndex": {
-          "format": "int64",
-          "description": "End index of this part.",
-          "type": "integer"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "ResponseModel": {
-      "description": "Model for response.",
-      "type": "object",
-      "properties": {
-        "VacancyOwnerId": {
-          "description": "Id of vacancy owner.",
-          "type": "string"
-        },
-        "VacancyId": {
-          "format": "int64",
-          "description": "Id of vacancy.",
-          "type": "integer"
-        },
-        "Id": {
-          "format": "int64",
-          "description": "Response identifier.",
-          "type": "integer"
-        },
-        "Owner": {
-          "$ref": "#/definitions/FullOwnerModel",
-          "description": "Owner that have created this response."
-        },
-        "Date": {
-          "format": "date-time",
-          "description": "Date and time of creating response.",
-          "type": "string"
-        },
-        "Comment": {
-          "description": "Additional comment for response to vacancy.",
-          "type": "string"
-        },
-        "State": {
-          "description": "State of response.",
-          "enum": [ "Unread", "Read", "Rejected", "Accepted" ],
-          "type": "string"
-        }
-      }
-    },
-    "ManageResponseResult": {
-      "description": "Wrapper model for creation/edit/delete result.",
-      "type": "object",
-      "properties": {
-        "VacancyOwnerId": {
-          "description": "Id of vacancy owner.",
-          "type": "string"
-        },
-        "VacancyId": {
-          "format": "int64",
-          "description": "Id of vacancy.",
-          "type": "integer"
-        },
-        "Id": {
-          "format": "int64",
-          "description": "Response identifier.",
-          "type": "integer"
-        },
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "Restricted", "IdNotExists", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "SearchResult": {
-      "description": "Model for search result.",
-      "type": "object",
-      "properties": {
-        "Query": {
-          "description": "Search query.",
-          "type": "string"
-        },
-        "Type": {
-          "description": "Search filter.",
-          "enum": [ "All", "Peoples", "Groups", "Companies", "Connections", "News", "Vacancies", "Responses", "Files", "Messages" ],
-          "type": "string"
-        },
-        "Peoples": {
-          "$ref": "#/definitions/ConnectionsModel",
-          "description": "Result for search in peoples."
-        },
-        "Groups": {
-          "$ref": "#/definitions/ConnectionsModel",
-          "description": "Result for search in groups."
-        },
-        "Companies": {
-          "$ref": "#/definitions/ConnectionsModel",
-          "description": "Result for search in companies."
-        },
-        "Connections": {
-          "$ref": "#/definitions/ConnectionsModel",
-          "description": "Result for search in connections. Exists only if Type == Connections."
-        },
-        "News": {
-          "$ref": "#/definitions/FeedModel",
-          "description": "Result for search in posts."
-        },
-        "Vacancies": {
-          "$ref": "#/definitions/VacanciesModel",
-          "description": "Result for search in vacancies."
-        },
-        "Responses": {
-          "$ref": "#/definitions/ResponsesModel",
-          "description": "Result for search in responses."
-        },
-        "Files": {
-          "$ref": "#/definitions/FilesModel",
-          "description": "Result for search in files."
-        },
-        "Messages": {
-          "$ref": "#/definitions/Object",
-          "description": "Result for search in messages. Not implemented yet."
-        }
-      }
-    },
-    "VacanciesModel": {
-      "description": "Wrapper model for part of vacancies collection.",
-      "type": "object",
-      "properties": {
-        "Entities": {
-          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
-          "type": "array",
-          "items": { "$ref": "#/definitions/VacancyModel" }
-        },
-        "StartIndex": {
-          "format": "int64",
-          "description": "Start index of this part.",
-          "type": "integer"
-        },
-        "EndIndex": {
-          "format": "int64",
-          "description": "End index of this part.",
-          "type": "integer"
-        },
-        "HasAscendingOrder": {
-          "description": "True if Entities is ordered ascending, false if descending.",
-          "type": "boolean"
-        },
-        "IsFirst": {
-          "description": "True if this is the first part, and no previous parts are available, false if not.",
-          "type": "boolean"
-        },
-        "IsLast": {
-          "description": "True if this is the last part, and no further parts are available, false if not.",
-          "type": "boolean"
-        },
-        "CollectionCount": {
-          "format": "int64",
-          "description": "Count of elements in whole collection.",
-          "type": "integer"
-        }
-      }
-    },
-    "Object": {
-      "type": "object",
-      "properties": { }
-    },
-    "VacancyModel": {
-      "description": "Model for describing vacancy.",
-      "required": [ "Title", "Salary" ],
-      "type": "object",
-      "properties": {
-        "Id": {
-          "format": "int64",
-          "description": "Vacancy identifier.",
-          "type": "integer"
-        },
-        "Title": {
-          "description": "Title.",
-          "type": "string"
-        },
-        "Salary": {
-          "description": "Salary.",
-          "type": "string"
-        },
-        "Description": {
-          "description": "Description of vacancy.",
-          "type": "string"
-        },
-        "Skills": {
-          "description": "Needed skill for this vacancy.",
-          "type": "array",
-          "items": { "$ref": "#/definitions/SkillModel" }
-        },
-        "Benefits": {
-          "description": "Additional benefits of this vacancy.",
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "Date": {
-          "format": "date-time",
-          "description": "Date and time when this vacancy was created.",
-          "type": "string"
-        }
-      }
-    },
-    "SkillModel": {
-      "description": "Model for describing user's skills. In future probably will contain more information.",
-      "type": "object",
-      "properties": {
-        "Name": {
-          "description": "Skill name.",
-          "type": "string"
-        }
-      }
-    },
-    "CreateProfileModel": {
-      "description": "Model for profile creation.",
-      "required": [ "Name", "Surname", "IsEmailShown", "IsMale", "Birthday", "BirthdayShownFor", "IsAgreed" ],
-      "type": "object",
-      "properties": {
-        "Name": {
-          "description": "First name.",
+          "description": "User's first name.",
           "type": "string"
         },
         "Surname": {
-          "description": "Last name.",
+          "description": "User's last name.",
           "type": "string"
-        },
-        "Email": {
-          "description": "Email (not editable).",
-          "type": "string"
-        },
-        "IsEmailShown": {
-          "description": "True if shown, false if hidden.",
-          "type": "boolean"
         },
         "IsMale": {
-          "description": "True if man, false if woman.",
+          "description": "True means male, false means female. Null means not set.",
           "type": "boolean"
         },
         "Birthday": {
           "format": "date-time",
-          "description": "Date of birth in ISO 8601 (e.g. 2014-02-15T00:00:00Z).",
-          "type": "string"
-        },
-        "BirthdayShownFor": {
-          "description": "Birthday's visibility option.",
-          "enum": [ "All", "None", "HideYear" ],
-          "type": "string"
-        },
-        "Country": {
-          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
-          "type": "string"
-        },
-        "City": {
-          "description": "City (for now is only string, but will be changed to city id(integer) later).",
-          "type": "string"
-        },
-        "IsAgreed": {
-          "description": "True if agreed, false if not.",
-          "type": "boolean"
-        }
-      }
-    },
-    "CreateProfileResult": {
-      "description": "Wrapper model for creation result.",
-      "type": "object",
-      "properties": {
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "NameRequired", "SurnameRequired", "BirthdayInvalid", "BirthdayShownForInvalid", "AgreeRequired", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "EditProfileModel": {
-      "description": "Model for profile edit.",
-      "required": [ "Name", "Surname", "IsMale", "Birthday" ],
-      "type": "object",
-      "properties": {
-        "Alias": {
-          "description": "Alias of user.",
-          "type": "string"
-        },
-        "Name": {
-          "description": "First name.",
-          "type": "string"
-        },
-        "Surname": {
-          "description": "Last name.",
+          "description": "User's date of birth.",
           "type": "string"
         },
         "Email": {
-          "description": "Email (not editable).",
-          "type": "string"
-        },
-        "IsMale": {
-          "description": "True if man, false if woman.",
-          "type": "boolean"
-        },
-        "Birthday": {
-          "format": "date-time",
-          "description": "Date of birth in ISO 8601 (e.g. 2014-02-15T00:00:00Z).",
-          "type": "string"
-        },
-        "Country": {
-          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
-          "type": "string"
-        },
-        "City": {
-          "description": "City (for now is only string, but will be changed to city id(integer) later).",
-          "type": "string"
-        },
-        "About": {
-          "description": "Some text that user wants to say about him/her.",
-          "type": "string"
-        },
-        "Description": {
-          "description": "Some text that user wants to say about what he/she do.",
-          "type": "string"
-        },
-        "Facebook": {
-          "description": "Link to the user's facebook account.",
-          "type": "string"
-        },
-        "Vkontakte": {
-          "description": "Link to the user's vkontakte account.",
-          "type": "string"
-        },
-        "Twitter": {
-          "description": "Link to the user's twitter account.",
-          "type": "string"
-        },
-        "GooglePlus": {
-          "description": "Link to the user's g+ account.",
+          "description": "User's email. This field is readonly if user has already entered it.",
           "type": "string"
         },
         "Phone": {
           "description": "User's phone number.",
           "type": "string"
         },
-        "Skype": {
-          "description": "User's skype id.",
-          "type": "string"
-        },
-        "Website": {
-          "description": "User's website.",
-          "type": "string"
-        },
-        "Skills": {
-          "description": "Array of user's skills.",
-          "type": "array",
-          "items": { "$ref": "#/definitions/SkillModel" }
-        },
-        "Experience": {
-          "description": "Array of objects that describes user's work experience.",
-          "type": "array",
-          "items": { "$ref": "#/definitions/ExperienceModel" }
-        },
-        "Education": {
-          "description": "Array of objects that describes user's education.",
-          "type": "array",
-          "items": { "$ref": "#/definitions/EducationModel" }
+        "Avatar": {
+          "$ref": "#/definitions/AvatarModel",
+          "description": "User's avatar."
         }
       }
     },
-    "ExperienceModel": {
-      "description": "Model that describes user's work experience.",
-      "required": [ "Position", "Company" ],
+    "AvatarModel": {
+      "description": "Model that describes avatar.",
       "type": "object",
       "properties": {
-        "Position": {
-          "description": "Position in company.",
+        "AbsolutePath": {
+          "description": "Absolute URL to avatar image.",
           "type": "string"
+        }
+      }
+    },
+    "OffersModel": {
+      "description": "Wrapper model for part of offers collection.",
+      "type": "object",
+      "properties": {
+        "Location": {
+          "$ref": "#/definitions/GeographyAddressModel",
+          "description": "Location near which offers were searched."
         },
-        "Company": {
-          "description": "Company (for now is only name, but will be changed to company id later and added company profile).",
-          "type": "string"
+        "Entities": {
+          "description": "Array that describes part of the collection. It always ordered by index even if there is no such field (it could be redundant).",
+          "type": "array",
+          "items": { "$ref": "#/definitions/OfferModel" }
         },
+        "StartIndex": {
+          "format": "int64",
+          "description": "Start index of this part.",
+          "type": "integer"
+        },
+        "EndIndex": {
+          "format": "int64",
+          "description": "End index of this part.",
+          "type": "integer"
+        },
+        "HasAscendingOrder": {
+          "description": "True if Entities is ordered ascending, false if descending.",
+          "type": "boolean"
+        },
+        "IsFirst": {
+          "description": "True if this is the first part, and no previous parts are available, false if not.",
+          "type": "boolean"
+        },
+        "IsLast": {
+          "description": "True if this is the last part, and no further parts are available, false if not.",
+          "type": "boolean"
+        },
+        "CollectionCount": {
+          "format": "int64",
+          "description": "Count of elements in whole collection.",
+          "type": "integer"
+        }
+      }
+    },
+    "GeographyAddressModel": {
+      "description": "Model that represents address and point on earth.",
+      "required": [ "Latitude", "Longitude" ],
+      "type": "object",
+      "properties": {
         "Country": {
-          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
+          "description": "Country.",
           "type": "string"
         },
         "City": {
-          "description": "City (for now is only string, but will be changed to city id(integer) later).",
+          "description": "City.",
           "type": "string"
         },
-        "IsCurrent": {
-          "description": "True if user works currently on this position in this company, false if not.",
-          "type": "boolean"
-        },
-        "StartDate": {
-          "format": "date-time",
-          "description": "Date of start working on this position.",
+        "Address": {
+          "description": "Full address.",
           "type": "string"
         },
-        "EndDate": {
-          "format": "date-time",
-          "description": "Date of end working on this position. Null if IsCurrent == true.",
-          "type": "string"
+        "Latitude": {
+          "format": "double",
+          "description": "Latitude.",
+          "type": "number"
         },
-        "Description": {
-          "description": "Description of or opinion about this position from user.",
-          "type": "string"
+        "Longitude": {
+          "format": "double",
+          "description": "Longitude.",
+          "type": "number"
         }
       }
     },
-    "EducationModel": {
-      "description": "Model that describes user's education.",
-      "type": "object",
-      "properties": {
-        "Organization": {
-          "description": "Organization name (for now is only string, but will be changed to education organization id later and added organization profile).",
-          "type": "string"
-        },
-        "Degree": {
-          "description": "Name of degree (probably will be changed in future).",
-          "type": "string"
-        },
-        "Country": {
-          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
-          "type": "string"
-        },
-        "City": {
-          "description": "City (for now is only string, but will be changed to city id(integer) later).",
-          "type": "string"
-        },
-        "IsCurrent": {
-          "description": "True if user currently gets this education, false if not.",
-          "type": "boolean"
-        },
-        "StartDate": {
-          "format": "date-time",
-          "description": "Date of start getting this education.",
-          "type": "string"
-        },
-        "EndDate": {
-          "format": "date-time",
-          "description": "Date of end getting this education. Null if IsCurrent == true.",
-          "type": "string"
-        },
-        "Description": {
-          "description": "Description of or opinion about this education from user.",
-          "type": "string"
-        }
-      }
-    },
-    "EditProfileResult": {
-      "description": "Wrapper model for creation result.",
-      "type": "object",
-      "properties": {
-        "IsSuccessful": {
-          "description": "True if succeeds, false if not.",
-          "type": "boolean"
-        },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "AliasExists", "AliasInvalid", "NameRequired", "SurnameRequired", "BirthdayInvalid", "Unknown" ],
-          "type": "string"
-        }
-      }
-    },
-    "ProfileModel": {
-      "description": "Model that describes user.",
+    "OfferModel": {
+      "description": "Model that describes offer for renting vehicle.",
       "type": "object",
       "properties": {
         "Id": {
-          "description": "Id or alias(if set).",
+          "description": "Offer's identifier.",
           "type": "string"
         },
-        "Name": {
-          "description": "First name.",
-          "type": "string"
+        "Distance": {
+          "format": "int32",
+          "description": "Distance to vehicle from point of search.",
+          "type": "integer"
         },
-        "Surname": {
-          "description": "Last name.",
-          "type": "string"
+        "Price": {
+          "format": "int32",
+          "description": "Price for renting vehicle for 1 day.",
+          "type": "integer"
         },
-        "Email": {
-          "description": "Email. Will be empty if owner's policy restricts it.",
-          "type": "string"
-        },
-        "IsMale": {
-          "description": "True if man, false if woman.",
+        "IsPublished": {
+          "description": "True if published. False if not.",
           "type": "boolean"
         },
-        "IsBirthdayYearShown": {
-          "description": "True if owner's policy is allows it, false if not (in this case year in Birthday field won't be correct).",
-          "type": "boolean"
+        "Location": {
+          "$ref": "#/definitions/GeographyAddressModel",
+          "description": "Geographical description for place where vehicle is located."
         },
-        "Birthday": {
-          "format": "date-time",
-          "description": "Date of birth in ISO 8601 (e.g. 2014-02-15T00:00:00Z). Null if it shouldn't be shown for current user.",
+        "Vehicle": {
+          "$ref": "#/definitions/CarModel",
+          "description": "Vehicle description."
+        },
+        "Owner": {
+          "$ref": "#/definitions/UserThumbnailModel",
+          "description": "Vehicle owner."
+        },
+        "Photo": {
+          "description": "Absolute path to offer main photo.",
           "type": "string"
-        },
-        "Country": {
-          "description": "Country (for now is only string, but will be changed to country id(integer) later).",
-          "type": "string"
-        },
-        "City": {
-          "description": "City (for now is only string, but will be changed to city id(integer) later).",
-          "type": "string"
-        },
-        "About": {
-          "description": "Some text that user wants to say about him/her.",
-          "type": "string"
-        },
-        "Description": {
-          "description": "Some text that user wants to say about what he/she do.",
-          "type": "string"
-        },
-        "Facebook": {
-          "description": "Link to the user's facebook account.",
-          "type": "string"
-        },
-        "Vkontakte": {
-          "description": "Link to the user's vkontakte account.",
-          "type": "string"
-        },
-        "Twitter": {
-          "description": "Link to the user's twitter account.",
-          "type": "string"
-        },
-        "GooglePlus": {
-          "description": "Link to the user's g+ account.",
-          "type": "string"
-        },
-        "Phone": {
-          "description": "User's phone number. Will be empty if owner's policy restricts it.",
-          "type": "string"
-        },
-        "Skype": {
-          "description": "User's skype id.",
-          "type": "string"
-        },
-        "Website": {
-          "description": "User's website.",
-          "type": "string"
-        },
-        "Skills": {
-          "description": "Array of user's skills.",
-          "type": "array",
-          "items": { "$ref": "#/definitions/SkillModel" }
-        },
-        "Experience": {
-          "description": "Array of objects that describes user's work experience.",
-          "type": "array",
-          "items": { "$ref": "#/definitions/ExperienceModel" }
-        },
-        "Education": {
-          "description": "Array of objects that describes user's education.",
-          "type": "array",
-          "items": { "$ref": "#/definitions/EducationModel" }
         }
       }
     },
-    "ManageVacancyResult": {
-      "description": "Wrapper model for creation/edit/delete result.",
+    "CarModel": {
+      "description": "Model that describes car.",
+      "required": [ "Brand", "Model" ],
+      "type": "object",
+      "properties": {
+        "Brand": {
+          "description": "Car's brand name.",
+          "type": "string"
+        },
+        "Model": {
+          "description": "Car's model name.",
+          "type": "string"
+        },
+        "Year": {
+          "format": "int32",
+          "description": "Car's year of production. null means not mentioned.",
+          "type": "integer"
+        },
+        "Transmission": {
+          "description": "Car's transmission. null means not mentioned.",
+          "enum": [ "Automatic", "Mechanic" ],
+          "type": "string"
+        },
+        "Fuel": {
+          "description": "Car's fuel type. null means not mentioned.",
+          "enum": [ "Petrol", "Diesel", "Electric", "Hybrid" ],
+          "type": "string"
+        },
+        "Drive": {
+          "description": "Car's drive type. null means not mentioned.",
+          "enum": [ "Rear", "Front", "Full" ],
+          "type": "string"
+        },
+        "SeatsCount": {
+          "format": "int32",
+          "description": "Number of available seats in Car. null means not mentioned.",
+          "type": "integer"
+        },
+        "Consumption": {
+          "format": "int32",
+          "description": "Car's fuel consumption per 100km. null means not mentioned.",
+          "type": "integer"
+        }
+      }
+    },
+    "UserThumbnailModel": {
+      "description": "Model that describes minimal info about user.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "description": "User's identifier.",
+          "type": "string"
+        },
+        "Name": {
+          "description": "User's name.",
+          "type": "string"
+        },
+        "Surname": {
+          "description": "User's surname.",
+          "type": "string"
+        },
+        "Rating": {
+          "format": "int32",
+          "description": "User's rating in percents.",
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "Avatar": {
+          "$ref": "#/definitions/AvatarModel",
+          "description": "User's avatar."
+        }
+      }
+    },
+    "SearchParametersModel": {
+      "description": "Model for searching offers.",
+      "type": "object",
+      "properties": {
+        "Latitude": {
+          "format": "double",
+          "description": "Latitude of point near which to search. null means we have to try to locate current user.",
+          "type": "number"
+        },
+        "Longitude": {
+          "format": "double",
+          "description": "Longitude of point near which to search. null means we have to try to locate current user.",
+          "type": "number"
+        },
+        "PriceMin": {
+          "format": "int32",
+          "description": "Minimal price of offers. null means not mentioned.",
+          "type": "integer"
+        },
+        "PriceMax": {
+          "format": "int32",
+          "description": "Maximal price of offers. null means not mentioned.",
+          "type": "integer"
+        },
+        "Brand": {
+          "description": "Car's brand name.",
+          "type": "string"
+        },
+        "Model": {
+          "description": "Car's model name.",
+          "type": "string"
+        },
+        "Year": {
+          "format": "int32",
+          "description": "Car's year of production. null means not mentioned.",
+          "type": "integer"
+        },
+        "Transmission": {
+          "description": "Car's transmission. null means not mentioned.",
+          "enum": [ "Automatic", "Mechanic" ],
+          "type": "string"
+        },
+        "Fuel": {
+          "description": "Car's fuel type. null means not mentioned.",
+          "enum": [ "Petrol", "Diesel", "Electric", "Hybrid" ],
+          "type": "string"
+        },
+        "Drive": {
+          "description": "Car's drive type. null means not mentioned.",
+          "enum": [ "Rear", "Front", "Full" ],
+          "type": "string"
+        },
+        "SeatsCountMin": {
+          "format": "int32",
+          "description": "Minimal number of available seats in Car. null means not mentioned.",
+          "type": "integer"
+        },
+        "SeatsCountMax": {
+          "format": "int32",
+          "description": "Maximal number of available seats in Car. null means not mentioned.",
+          "type": "integer"
+        },
+        "ConsumptionMin": {
+          "format": "int32",
+          "description": "Car's fuel consumption minimal per 100km. null means not mentioned.",
+          "type": "integer"
+        },
+        "ConsumptionMax": {
+          "format": "int32",
+          "description": "Car's fuel consumption maximal per 100km. null means not mentioned.",
+          "type": "integer"
+        },
+        "VehicleAdditionalOptions": {
+          "$ref": "#/definitions/VehicleAdditionalOptionsModel",
+          "description": "Additional vehicle options to search."
+        },
+        "OfferAdditionalOptions": {
+          "$ref": "#/definitions/OfferAdditionalOptionsModel",
+          "description": "Additional offer options to search."
+        }
+      }
+    },
+    "VehicleAdditionalOptionsModel": {
+      "description": "Model that describes additional options for vehicles.",
+      "type": "object",
+      "properties": {
+        "IsGPS": {
+          "description": "True means there is gps navigator in car, false means there is no gps navigator.",
+          "type": "boolean"
+        },
+        "IsMusic": {
+          "description": "True means there is music player in car, false means there is no music player.",
+          "type": "boolean"
+        },
+        "IsBycicleHolder": {
+          "description": "True means there is bycicle holder in car, false means there is no bycicle holder .",
+          "type": "boolean"
+        },
+        "IsSkisHolder": {
+          "description": "True means there is skis holder in car, false means there is no skis holder.",
+          "type": "boolean"
+        },
+        "IsLuggageBox": {
+          "description": "True means there is luggage box in car, false means there is no luggage box.",
+          "type": "boolean"
+        },
+        "IsChildSeat": {
+          "description": "True means there is child seat in car, false means there is no child seat.",
+          "type": "boolean"
+        },
+        "IsConditioner": {
+          "description": "True means there is conditioner in car, false means there is no conditioner.",
+          "type": "boolean"
+        }
+      }
+    },
+    "OfferAdditionalOptionsModel": {
+      "description": "Model that describes additional options for offers.",
+      "type": "object",
+      "properties": {
+        "MinAge": {
+          "format": "int32",
+          "description": "Minimal age of driver that allowed to rent this car. null if onwer hasn't define it.",
+          "type": "integer"
+        },
+        "IsSmoking": {
+          "description": "True if smoking is allowed, false if not, null if onwer hasn't define it.",
+          "type": "boolean"
+        },
+        "AllowedDistance": {
+          "format": "int32",
+          "description": "Maximal distance from renting point in km that allowed to travel. null if unlimited.",
+          "type": "integer"
+        },
+        "Delivery": {
+          "description": "Offered delivery. null if owner hasn't define it.",
+          "enum": [ "No", "City", "Suburb" ],
+          "type": "string"
+        }
+      }
+    },
+    "FullOfferModel": {
+      "description": "Model that describes full offer for renting vehicle.",
+      "type": "object",
+      "properties": {
+        "Calendar": {
+          "$ref": "#/definitions/ManageCalendarModel",
+          "description": "Calendar for this offer."
+        },
+        "AdditionalVehicleOptions": {
+          "$ref": "#/definitions/VehicleAdditionalOptionsModel",
+          "description": "Additional vehicle options."
+        },
+        "AdditionalOfferOptions": {
+          "$ref": "#/definitions/OfferAdditionalOptionsModel",
+          "description": "Additional offer's options."
+        },
+        "Photos": {
+          "description": "Array of absolute pathes to photos.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "Id": {
+          "description": "Offer's identifier.",
+          "type": "string"
+        },
+        "Distance": {
+          "format": "int32",
+          "description": "Distance to vehicle from point of search.",
+          "type": "integer"
+        },
+        "Price": {
+          "format": "int32",
+          "description": "Price for renting vehicle for 1 day.",
+          "type": "integer"
+        },
+        "IsPublished": {
+          "description": "True if published. False if not.",
+          "type": "boolean"
+        },
+        "Location": {
+          "$ref": "#/definitions/GeographyAddressModel",
+          "description": "Geographical description for place where vehicle is located."
+        },
+        "Vehicle": {
+          "$ref": "#/definitions/CarModel",
+          "description": "Vehicle description."
+        },
+        "Owner": {
+          "$ref": "#/definitions/UserThumbnailModel",
+          "description": "Vehicle owner."
+        },
+        "Photo": {
+          "description": "Absolute path to offer main photo.",
+          "type": "string"
+        }
+      }
+    },
+    "ManageCalendarModel": {
+      "description": "Model for managing calendar.",
+      "type": "object",
+      "properties": {
+        "IsRegular": {
+          "description": "True means this offer is available in selected days and hours every week. false means not.",
+          "type": "boolean"
+        },
+        "Schedule": {
+          "description": "Offer schedule. Starts from Monday (0). Length == 7 unless it is null.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/WeekDayModel" }
+        },
+        "Periods": {
+          "description": "Array of one-time offers.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/OneTimeModel" }
+        }
+      }
+    },
+    "WeekDayModel": {
+      "description": "Model that describes day of week in schedule.",
+      "type": "object",
+      "properties": {
+        "IsIncluded": {
+          "description": "True if in this day of week offer is available. False if not.",
+          "type": "boolean"
+        },
+        "From": {
+          "$ref": "#/definitions/DayTimeModel",
+          "description": "Time from wich offer is available. null in Hours and Minutes means from start of the day."
+        },
+        "To": {
+          "$ref": "#/definitions/DayTimeModel",
+          "description": "Time till wich offer is available. null in Hours and Minutes means till end of the day."
+        }
+      }
+    },
+    "OneTimeModel": {
+      "description": "Model that describes one-time offer.",
       "type": "object",
       "properties": {
         "Id": {
           "format": "int64",
-          "description": "Vacancy identifier.",
+          "description": "Id of one-time offer. Unique inside general offer. Null is using to add new one-time offers.",
           "type": "integer"
         },
+        "From": {
+          "format": "date-time",
+          "description": "Date and time from wich offer is available. null means from now unless OneTimeModel.To is null. Both null is using in order to delete one-time offer.",
+          "type": "string"
+        },
+        "To": {
+          "format": "date-time",
+          "description": "Date and time till wich offer is available. null means forever unless OneTimeModel.From is null. Both null is using in order to delete one-time offer.",
+          "type": "string"
+        }
+      }
+    },
+    "DayTimeModel": {
+      "description": "Model that describes time in day.",
+      "type": "object",
+      "properties": {
+        "Hours": {
+          "format": "int32",
+          "description": "Hours.",
+          "type": "integer"
+        },
+        "Minutes": {
+          "format": "int32",
+          "description": "Minutes.",
+          "type": "integer"
+        }
+      }
+    },
+    "ManageCarModel": {
+      "description": "Model for managing car.",
+      "required": [ "Brand", "Model" ],
+      "type": "object",
+      "properties": {
+        "Cost": {
+          "format": "int64",
+          "description": "Cost of the car.",
+          "type": "integer"
+        },
+        "AdditionalOptions": {
+          "$ref": "#/definitions/VehicleAdditionalOptionsModel",
+          "description": "Additional car options."
+        },
+        "Brand": {
+          "description": "Car's brand name.",
+          "type": "string"
+        },
+        "Model": {
+          "description": "Car's model name.",
+          "type": "string"
+        },
+        "Year": {
+          "format": "int32",
+          "description": "Car's year of production. null means not mentioned.",
+          "type": "integer"
+        },
+        "Transmission": {
+          "description": "Car's transmission. null means not mentioned.",
+          "enum": [ "Automatic", "Mechanic" ],
+          "type": "string"
+        },
+        "Fuel": {
+          "description": "Car's fuel type. null means not mentioned.",
+          "enum": [ "Petrol", "Diesel", "Electric", "Hybrid" ],
+          "type": "string"
+        },
+        "Drive": {
+          "description": "Car's drive type. null means not mentioned.",
+          "enum": [ "Rear", "Front", "Full" ],
+          "type": "string"
+        },
+        "SeatsCount": {
+          "format": "int32",
+          "description": "Number of available seats in Car. null means not mentioned.",
+          "type": "integer"
+        },
+        "Consumption": {
+          "format": "int32",
+          "description": "Car's fuel consumption per 100km. null means not mentioned.",
+          "type": "integer"
+        }
+      }
+    },
+    "ManageCarResult": {
+      "description": "Wrapper model for managing car result.",
+      "type": "object",
+      "properties": {
         "IsSuccessful": {
           "description": "True if succeeds, false if not.",
           "type": "boolean"
         },
-        "Error": {
-          "description": "Actual error type.",
-          "enum": [ "Restricted", "IdNotExists", "TitileRequired", "SalaryRequired", "Unknown" ],
+        "Id": {
+          "description": "Offer's id if operation is successful, Null if not.",
           "type": "string"
+        },
+        "Errors": {
+          "description": "Actual errors array.",
+          "type": "array",
+          "items": {
+            "enum": [ "CarNotExists", "BrandRequired", "ModelRequired", "Unknown" ],
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ChangeStatusResult": {
+      "description": "Wrapper model for changing offer status result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Errors": {
+          "description": "Actual errors array.",
+          "type": "array",
+          "items": {
+            "enum": [ "OfferNotExists", "Unknown" ],
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ManageOfferModel": {
+      "description": "Model for managing offer.",
+      "required": [ "Location" ],
+      "type": "object",
+      "properties": {
+        "Location": {
+          "$ref": "#/definitions/GeographyAddressModel",
+          "description": "Location of offer."
+        },
+        "AdditionalOptions": {
+          "$ref": "#/definitions/OfferAdditionalOptionsModel",
+          "description": "Additional offer's options."
+        },
+        "Price": {
+          "format": "int32",
+          "description": "Renting price for one day. null if onwer hasn't define it. In case of editing with null default price will be set.",
+          "type": "integer"
+        },
+        "DefaultPrice": {
+          "format": "int32",
+          "description": "Default price calculated by service.",
+          "type": "integer"
+        }
+      }
+    },
+    "ManageOfferResult": {
+      "description": "Wrapper model for managing offer result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Errors": {
+          "description": "Actual errors array.",
+          "type": "array",
+          "items": {
+            "enum": [ "OfferNotExists", "LocationRequired", "LocationInvalid", "Unknown" ],
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ManageCalendarResult": {
+      "description": "Wrapper model for managing calendar result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Errors": {
+          "description": "Actual errors array.",
+          "type": "array",
+          "items": {
+            "enum": [ "OfferNotExists", "Unknown" ],
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ManagePhotosModel": {
+      "description": "Model for managing offer's photos.",
+      "type": "object",
+      "properties": {
+        "Photos": {
+          "description": "Set of offer photos.",
+          "type": "array",
+          "items": { "$ref": "#/definitions/PhotoModel" }
+        }
+      }
+    },
+    "PhotoModel": {
+      "description": "Model for offer photo.",
+      "type": "object",
+      "properties": {
+        "Id": {
+          "format": "int64",
+          "description": "Photo identifier. Unique inside one offer.",
+          "type": "integer"
+        },
+        "AbsolutePath": {
+          "description": "Absolute uri to the photo.",
+          "type": "string"
+        }
+      }
+    },
+    "AddPhotoResult": {
+      "description": "Wrapper model for adding photo result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Photo": {
+          "$ref": "#/definitions/PhotoModel",
+          "description": "Added photo. Null if not succeeded."
+        },
+        "Errors": {
+          "description": "Actual errors array.",
+          "type": "array",
+          "items": {
+            "enum": [ "OfferNotExists", "Unknown" ],
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DeletePhotoResult": {
+      "description": "Wrapper model for deleting photo result.",
+      "type": "object",
+      "properties": {
+        "IsSuccessful": {
+          "description": "True if succeeds, false if not.",
+          "type": "boolean"
+        },
+        "Errors": {
+          "description": "Actual errors array.",
+          "type": "array",
+          "items": {
+            "enum": [ "OfferNotExists", "PhotoNotExists", "Unknown" ],
+            "type": "string"
+          }
         }
       }
     }
