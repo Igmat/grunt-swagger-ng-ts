@@ -1,3 +1,0 @@
-﻿# grunt-swagger-ng-ts
-
-
