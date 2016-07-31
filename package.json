@@ -3,9 +3,10 @@
   "version": "0.0.22",
   "description": "Grunt task for Swagger TS angular codegen",
   "main": "./tasks/swagger-ts-codegen.js",
-  "author": {
-    "name": "Игорь",
-    "email": ""
+  "author": "Ihor Chulinda <ichulinda@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Igmat/grunt-swagger-ng-ts "
   },
   "keywords": [
     "swagger",
