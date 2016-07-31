@@ -6,6 +6,7 @@
                 pathSwagger: 'swagger/swagger.json',
                 dest: 'ssss',
                 mainModule: 'profebook',
+                pathToRef: false,
                 pathToGenRefs: 'gen.ts'
                 }
         }
